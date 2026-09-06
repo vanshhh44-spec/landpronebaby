@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JNV Lawan Webpage</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            background-color: #e9ecef;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            margin: 20px auto;
+            padding: 20px;
+            max-width: 500px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #007BFF;
+            margin-bottom: 20px;
+        }
+        .data {
+            font-size: 1.2em;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .data-green {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .data-yellow {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+        .data-red {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .update-time {
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sensor Data</h1>
+        <div id="moisture" class="data">Soil Moisture: --</div>
+        <div id="rain" class="data">Rain: --</div>
+        <div id="angle" class="data">Angle of Surface: --</div>
+        <div id="landSchance" class="data">Probability of Land Slide: --</div>
+        <div id="slopeStatus" class="data">Status of Land Slope: --</div>
+        <div class="update-time" id="update-time">Last Updated: --</div>
+    </div>
+
+    <script>
+        function fetchData() {
+            fetch('/data')
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    let moistureElement = document.getElementById('moisture');
+                    let rainElement = document.getElementById('rain');
+                    let angleElement = document.getElementById('angle');
+                    let landSchanceElement = document.getElementById('landSchance');
+                    let slopeStatusElement = document.getElementById('slopeStatus');
+
+                    // Set data content
+                    moistureElement.textContent = `Soil Moisture: ${data.moistData}%`;
+                    rainElement.textContent = `Rain: ${data.rainData}%`;
+                    angleElement.textContent = `Angle of Surface: ${data.angleXAxis}°`;
+
+                    // Determine class based on value
+                    moistureElement.className = 'data ' + (data.moistData >= 80 ? 'data-red' : data.moistData >= 50 ? 'data-yellow' : 'data-green');
+                    rainElement.className = 'data ' + (data.rainData >= 60 ? 'data-red' : data.rainData >= 30 ? 'data-yellow' : 'data-green');
+                    angleElement.className = 'data ' + (data.angleXAxis >= 10 ? 'data-red' : data.angleXAxis >= 5 ? 'data-yellow' : 'data-green');
+
+                    // Set landslide chance description
+                    let landSlideChanceText;
+                    if (data.lsc == 0) landSlideChanceText = "Nearly No Chance";
+                    else if (data.lsc == 1) landSlideChanceText = "Low Chance";
+                    else if (data.lsc == 2) landSlideChanceText = "Moderate Chance";
+                    else landSlideChanceText = "High Chance";
+
+                    // Set slope status description
+                    let slopeStatusText;
+                    if (data.sS == 0) slopeStatusText = "No Land Slide";
+                    else if (data.sS == 1) slopeStatusText = "Unusual Activity Detected";
+                    else slopeStatusText = "Land Slide";
+
+                    landSchanceElement.textContent = `Probability of Land Slide: ${landSlideChanceText}`;
+                    slopeStatusElement.textContent = `Status of Land Slope: ${slopeStatusText}`;
+
+                    // Set class based on landslide chance
+                    landSchanceElement.className = 'data ' + (data.lsc >= 3 ? 'data-red' : data.lsc >= 1 ? 'data-yellow' : 'data-green');
+                    slopeStatusElement.className = 'data ' + (data.sS >= 2 ? 'data-red' : data.sS >= 1 ? 'data-yellow' : 'data-green');
+
+                    // Update time
+                    const now = new Date();
+                    document.getElementById('update-time').textContent = `Last Updated: ${now.toLocaleTimeString()}`;
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        }
+
+        // Fetch data initially and then every 10 seconds
+        fetchData();
+        setInterval(fetchData, 10000);
+    </script>
+</body>
+</html>
