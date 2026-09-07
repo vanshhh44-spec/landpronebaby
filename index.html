@@ -1,184 +1,858 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>JNV Lawan Landslide Monitoring</title>
+
     <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
             margin: 0;
-            padding: 0;
+            min-height: 100vh;
+            font-family: Arial, sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #eaf4ff,
+                    #f8fbff
+                );
+
+            color: #222;
+
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            height: 100vh;
-            overflow: hidden;
+            align-items: center;
+
+            padding: 20px;
+
+            transition: background 0.5s ease;
+        }
+
+        /* =========================
+           Main Container
+        ========================= */
+
+        .container {
+            width: 100%;
+            max-width: 850px;
+
+            background: rgba(255,255,255,0.95);
+
+            border-radius: 24px;
+
+            padding: 30px;
+
+            box-shadow:
+                0 20px 50px rgba(0,0,0,0.12);
+
+            position: relative;
+
+            z-index: 2;
+
+            transition: 0.5s ease;
+        }
+
+
+        /* =========================
+           Header
+        ========================= */
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            gap: 15px;
+
+            margin-bottom: 25px;
         }
 
         .heading {
-            font-size: 2.5em;
-            color: #007BFF;
-            margin-bottom: 20px;
-            animation: fadeIn 2s ease-in-out;
+            margin: 0;
+
+            font-size: 2.1rem;
+
+            color: #075ca8;
         }
 
-        .container {
+        .subtitle {
+            margin-top: 7px;
+
+            color: #777;
+
+            font-size: 0.95rem;
+        }
+
+
+        /* =========================
+           Live Indicator
+        ========================= */
+
+        .live-box {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            animation: slideDown 1s ease-in-out;
-            max-width: 600px;
-            width: 100%;
-            position: relative;
+
+            gap: 8px;
+
+            padding: 8px 14px;
+
+            border-radius: 30px;
+
+            background: #e9fff1;
+
+            color: #16803c;
+
+            font-weight: bold;
+
+            font-size: 0.9rem;
+
+            white-space: nowrap;
         }
 
-        .data-panel, .status-panel {
-            background-color: #f9f9f9;
-            border-radius: 8px;
-            padding: 15px;
-            margin: 10px 0;
-            width: 100%;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-            animation: popUp 1.5s ease-in-out;
+        .live-dot {
+            width: 10px;
+            height: 10px;
+
+            background: #19c463;
+
+            border-radius: 50%;
+
+            animation: pulse 1.5s infinite;
         }
 
-        .data-panel {
-            background-color: #e7f3fe;
+        @keyframes pulse {
+
+            0% {
+                box-shadow: 0 0 0 0 rgba(25,196,99,0.6);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(25,196,99,0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(25,196,99,0);
+            }
+
         }
+
+
+        /* =========================
+           Sensor Cards
+        ========================= */
+
+        .sensor-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 15px;
+
+            margin-bottom: 20px;
+        }
+
+        .sensor-card {
+
+            padding: 22px;
+
+            border-radius: 16px;
+
+            background: #f5faff;
+
+            border: 1px solid #e0edf9;
+
+            transition: 0.3s ease;
+        }
+
+        .sensor-card:hover {
+
+            transform: translateY(-3px);
+
+            box-shadow:
+                0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        .sensor-title {
+
+            font-size: 0.9rem;
+
+            color: #777;
+
+            margin-bottom: 10px;
+        }
+
+        .sensor-value {
+
+            font-size: 1.8rem;
+
+            font-weight: bold;
+
+            color: #075ca8;
+        }
+
+
+        /* =========================
+           Status Section
+        ========================= */
 
         .status-panel {
-            background-color: #ffe7e7;
+
+            padding: 22px;
+
+            border-radius: 18px;
+
+            background: #f5f5f5;
+
+            border: 1px solid #ddd;
+
+            margin-top: 10px;
+
+            transition: 0.5s ease;
         }
 
-        .data {
-            font-size: 1.2em;
-            margin: 5px 0;
-            transition: color 0.5s ease;
+        .status-row {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            padding: 13px 0;
+
+            border-bottom: 1px solid #ddd;
         }
+
+        .status-row:last-child {
+
+            border-bottom: none;
+        }
+
+        .status-label {
+
+            color: #666;
+        }
+
+        .status-value {
+
+            font-weight: bold;
+
+            color: #16803c;
+        }
+
+
+        /* =========================
+           Update Time
+        ========================= */
 
         .update-time {
-            font-size: 0.9em;
-            color: #666;
-            margin-top: 10px;
+
+            text-align: center;
+
+            margin-top: 20px;
+
+            font-size: 0.85rem;
+
+            color: #777;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+
+        /* =========================
+           Connection Status
+        ========================= */
+
+        .connection {
+
+            text-align: center;
+
+            margin-top: 8px;
+
+            font-size: 0.8rem;
+
+            color: #888;
         }
 
-        @keyframes slideDown {
-            from { transform: translateY(-100px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+
+        /* =========================
+           Danger Mode
+        ========================= */
+
+        body.danger-mode {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffe1e1,
+                    #fff5f5
+                );
         }
 
-        @keyframes popUp {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
+        .danger-mode .container {
 
-        /* Mountain Animation */
-        .mountains {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 200px;
-            background: url('https://www.svgrepo.com/show/398565/mountains.svg') repeat-x;
-            background-size: cover;
-            animation: moveMountains 10s linear infinite;
-            opacity: 0.2;
-        }
+            border: 2px solid #ff4b4b;
 
-        @keyframes moveMountains {
-            from { background-position: 0 0; }
-            to { background-position: 1000px 0; }
-        }
-
-        .danger-mode {
-            background-color: #FF0000;
-            color: #fff;
-            transition: background-color 1s ease;
-        }
-
-        .danger-mode .status-panel {
-            background-color: #ffcccc;
+            box-shadow:
+                0 15px 50px rgba(255,0,0,0.2);
         }
 
         .danger-mode .heading {
-            color: #fff;
+
+            color: #d60000;
         }
+
+        .danger-mode .status-panel {
+
+            background: #ffe1e1;
+
+            border-color: #ff8585;
+        }
+
+        .danger-text {
+
+            color: #d60000 !important;
+        }
+
+
+        /* =========================
+           Mobile
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            .container {
+                padding: 20px;
+            }
+
+            .header {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+            }
+
+            .heading {
+
+                font-size: 1.7rem;
+            }
+
+            .sensor-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+            .sensor-value {
+
+                font-size: 1.6rem;
+            }
+
+        }
+
     </style>
+
 </head>
+
+
 <body>
-    <div class="mountains"></div>
-    <div class="container">
-        <h1 class="heading">Landslide Monitoring System</h1>
 
-        <div class="data-panel">
-            <div id="moisture" class="data">Soil Moisture: --</div>
-            <div id="rain" class="data">Rain: --</div>
-            <div id="angle" class="data">Angle of Surface: --</div>
+<div class="container">
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div>
+
+            <h1 class="heading">
+                Landslide Monitoring System
+            </h1>
+
+            <div class="subtitle">
+                JNV Lawan • Real-Time Monitoring
+            </div>
+
         </div>
 
-        <div class="status-panel">
-            <div id="landSchance" class="data">Probability of Landslide: --</div>
-            <div id="slopeStatus" class="data">Status of Land Slope: --</div>
+        <div class="live-box">
+
+            <div class="live-dot"></div>
+
+            LIVE
+
         </div>
 
-        <div class="update-time" id="update-time">Last Updated: --</div>
     </div>
 
-    <script>
-        function fetchData() {
-            fetch('/data')
-                .then(response => response.json())
-                .then(data => {
-                    const container = document.querySelector('.container');
-                    if (data.lsc == 0) {
-                        data.lsc = "Nearly No Chance";
-                        container.classList.remove('danger-mode');
-                    } else if (data.lsc == 1) {
-                        data.lsc = "Low Chance";
-                    } else if (data.lsc == 2) {
-                        data.lsc = "Moderate Chance";
-                        container.classList.add('danger-mode');
-                    } else if (data.lsc == 3) {
-                        data.lsc = "High Chance";
-                        container.classList.add('danger-mode');
-                    }
 
-                    if (data.sS == 0) {
-                        data.sS = "No Landslide";
-                    } else if (data.sS == 1) {
-                        data.sS = "Unusual Land Movement";
-                    } else if (data.sS == 2) {
-                        data.sS = "Landslide";
-                        container.classList.add('danger-mode');
-                    }
+    <!-- SENSOR DATA -->
 
-                    document.getElementById('moisture').textContent = `Soil Moisture: ${data.moistData}%`;
-                    document.getElementById('rain').textContent = `Rain: ${data.rainData}%`;
-                    document.getElementById('angle').textContent = `Angle of Surface: ${data.angleXAxis}°`;
-                    document.getElementById('landSchance').textContent = `Probability of Landslide: ${data.lsc}`;
-                    document.getElementById('slopeStatus').textContent = `Status of Land Slope: ${data.sS}`;
+    <div class="sensor-grid">
 
-                    const now = new Date();
-                    document.getElementById('update-time').textContent = `Last Updated: ${now.toLocaleTimeString()}`;
-                })
-                .catch(error => console.error('Error fetching data:', error));
+        <div class="sensor-card">
+
+            <div class="sensor-title">
+                🌱 Soil Moisture
+            </div>
+
+            <div
+                id="moisture"
+                class="sensor-value"
+            >
+                --
+            </div>
+
+        </div>
+
+
+        <div class="sensor-card">
+
+            <div class="sensor-title">
+                🌧 Rain
+            </div>
+
+            <div
+                id="rain"
+                class="sensor-value"
+            >
+                --
+            </div>
+
+        </div>
+
+
+        <div class="sensor-card">
+
+            <div class="sensor-title">
+                📐 Surface Angle
+            </div>
+
+            <div
+                id="angle"
+                class="sensor-value"
+            >
+                --
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- STATUS -->
+
+    <div class="status-panel">
+
+        <div class="status-row">
+
+            <div class="status-label">
+                Probability of Landslide
+            </div>
+
+            <div
+                id="landSchance"
+                class="status-value"
+            >
+                --
+            </div>
+
+        </div>
+
+
+        <div class="status-row">
+
+            <div class="status-label">
+                Status of Land Slope
+            </div>
+
+            <div
+                id="slopeStatus"
+                class="status-value"
+            >
+                --
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- LAST UPDATE -->
+
+    <div
+        class="update-time"
+        id="update-time"
+    >
+        Last Updated: --
+    </div>
+
+
+    <div
+        class="connection"
+        id="connection"
+    >
+        Connecting to Firebase...
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     FIREBASE
+===================================================== -->
+
+<script type="module">
+
+    /*
+     * IMPORTANT:
+     *
+     * Replace these Firebase configuration values
+     * with your Firebase project's Web App configuration.
+     *
+     * Firebase Console:
+     *
+     * Project Settings
+     * →
+     * Your apps
+     * →
+     * Web App
+     *
+     */
+
+
+    import {
+        initializeApp
+    } from
+    "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+
+    import {
+        getDatabase,
+        ref,
+        onValue,
+        query,
+        limitToLast
+    } from
+    "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+
+    // =================================================
+    // FIREBASE CONFIG
+    // =================================================
+
+    const firebaseConfig = {
+  apiKey: "AIzaSyBqL9eM6rWmUx2uBvIXHU0bxQTIjSe7DpQ",
+  authDomain: "esp-demo-4e43b.firebaseapp.com",
+  databaseURL: "https://esp-demo-4e43b-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "esp-demo-4e43b",
+  storageBucket: "esp-demo-4e43b.firebasestorage.app",
+  messagingSenderId: "791498088764",
+  appId: "1:791498088764:web:882611deb10d667c1dbe39",
+  measurementId: "G-MGSTRSRDRP"
+};
+
+
+    // =================================================
+    // INITIALIZE FIREBASE
+    // =================================================
+
+    const app =
+        initializeApp(firebaseConfig);
+
+
+    const database =
+        getDatabase(app);
+
+
+    // =================================================
+    // FIREBASE SENSOR REFERENCE
+    // =================================================
+
+    const sensorRef =
+        ref(database, "sensor");
+
+
+    /*
+     * limitToLast(1)
+     *
+     * Sirf latest record listen karega.
+     *
+     * Firebase me purani history delete nahi hogi.
+     */
+
+    const latestSensorQuery =
+        query(
+            sensorRef,
+            limitToLast(1)
+        );
+
+
+    // =================================================
+    // LISTEN FOR LIVE DATA
+    // =================================================
+
+    onValue(
+        latestSensorQuery,
+
+        (snapshot) => {
+
+            const data =
+                snapshot.val();
+
+
+            if (!data) {
+
+                document.getElementById(
+                    "connection"
+                ).textContent =
+                    "No sensor data found";
+
+                return;
+            }
+
+
+            /*
+             * Firebase ka latest record
+             *
+             * sensor
+             *   └── randomFirebaseID
+             *          ├── temperature
+             *          ├── humidity
+             *          └── timestamp
+             */
+
+            const keys =
+                Object.keys(data);
+
+
+            const latestKey =
+                keys[keys.length - 1];
+
+
+            const latest =
+                data[latestKey];
+
+
+            // =================================================
+            // UPDATE SENSOR VALUES
+            // =================================================
+
+            document.getElementById(
+                "moisture"
+            ).textContent =
+                latest.humidity !== undefined
+                ? `${latest.humidity}%`
+                : "--";
+
+
+            document.getElementById(
+                "rain"
+            ).textContent =
+                "--";
+
+
+            document.getElementById(
+                "angle"
+            ).textContent =
+                "--";
+
+
+            /*
+             * NOTE:
+             *
+             * Tumhare current ESP8266 demo code me
+             * sirf temperature + humidity hai.
+             *
+             * Jab actual Soil Moisture / Rain / Angle
+             * ESP8266 se bhejoge, yahan unko directly
+             * connect kar denge.
+             *
+             * Temperature ko temporarily angle ki jagah
+             * nahi dikhaya gaya hai.
+             */
+
+
+            // =================================================
+            // LANDSLIDE STATUS
+            // =================================================
+
+            /*
+             * Abhi ESP8266 code me lsc aur sS nahi aa raha.
+             *
+             * Isliye demo ke liye:
+             */
+
+            const moisture =
+                Number(latest.humidity || 0);
+
+
+            let probability =
+                "Nearly No Chance";
+
+
+            let slopeStatus =
+                "No Landslide";
+
+
+            /*
+             * Demo logic
+             *
+             * Baad me actual sensor values ke basis par
+             * proper algorithm laga sakte hain.
+             */
+
+            if (moisture >= 80) {
+
+                probability =
+                    "High Chance";
+
+                slopeStatus =
+                    "Unusual Land Movement";
+
+            }
+
+            else if (moisture >= 65) {
+
+                probability =
+                    "Moderate Chance";
+
+            }
+
+            else if (moisture >= 50) {
+
+                probability =
+                    "Low Chance";
+
+            }
+
+
+            document.getElementById(
+                "landSchance"
+            ).textContent =
+                probability;
+
+
+            document.getElementById(
+                "slopeStatus"
+            ).textContent =
+                slopeStatus;
+
+
+            // =================================================
+            // DANGER MODE
+            // =================================================
+
+            const body =
+                document.body;
+
+
+            if (
+                probability === "High Chance" ||
+                slopeStatus === "Landslide"
+            ) {
+
+                body.classList.add(
+                    "danger-mode"
+                );
+
+                document
+                    .getElementById("landSchance")
+                    .classList.add("danger-text");
+
+            }
+
+            else {
+
+                body.classList.remove(
+                    "danger-mode"
+                );
+
+                document
+                    .getElementById("landSchance")
+                    .classList.remove("danger-text");
+
+            }
+
+
+            // =================================================
+            // UPDATE TIME
+            // =================================================
+
+            if (latest.timestamp) {
+
+                const date =
+                    new Date(
+                        latest.timestamp * 1000
+                    );
+
+
+                document.getElementById(
+                    "update-time"
+                ).textContent =
+                    "Last Updated: " +
+                    date.toLocaleString();
+
+            }
+
+            else {
+
+                document.getElementById(
+                    "update-time"
+                ).textContent =
+                    "Last Updated: Just now";
+
+            }
+
+
+            // =================================================
+            // CONNECTION STATUS
+            // =================================================
+
+            document.getElementById(
+                "connection"
+            ).textContent =
+                "● Firebase Connected • Live Data";
+
+            document.getElementById(
+                "connection"
+            ).style.color =
+                "#16803c";
+
+        },
+
+
+        (error) => {
+
+            console.error(
+                "Firebase Error:",
+                error
+            );
+
+
+            document.getElementById(
+                "connection"
+            ).textContent =
+                "Firebase connection error";
+
+            document.getElementById(
+                "connection"
+            ).style.color =
+                "#d60000";
+
         }
 
-        fetchData();
-        setInterval(fetchData, 10000);
-    </script>
+    );
+
+</script>
+
+
 </body>
+
 </html>
