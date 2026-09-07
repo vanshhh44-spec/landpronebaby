@@ -19,10 +19,26 @@
          CHART.JS
     ====================================================== -->
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <!-- =====================================================
+         LEAFLET GIS
+    ====================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    >
+
     <script
-        src="https://cdn.jsdelivr.net/npm/chart.js">
+        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
     </script>
 
+
+    <!-- =====================================================
+         CSS
+    ====================================================== -->
 
     <style>
 
@@ -36,6 +52,8 @@
             margin: 0;
 
             min-height: 100vh;
+
+            padding: 25px;
 
             font-family:
                 Arial,
@@ -51,12 +69,14 @@
 
             color: #222;
 
-            padding: 25px;
-
             transition:
                 background 0.5s ease;
         }
 
+
+        /* =====================================================
+           MAIN CONTAINER
+        ====================================================== */
 
         .container {
 
@@ -66,12 +86,12 @@
 
             margin: auto;
 
+            padding: 30px;
+
             background:
                 rgba(255,255,255,0.97);
 
             border-radius: 24px;
-
-            padding: 30px;
 
             box-shadow:
                 0 20px 60px
@@ -102,9 +122,9 @@
 
             margin: 0;
 
-            font-size: 2.3rem;
-
             color: #075ca8;
+
+            font-size: 2.3rem;
         }
 
 
@@ -131,17 +151,13 @@
 
             border-radius: 30px;
 
-            background:
-                #e9fff1;
+            background: #e9fff1;
 
-            color:
-                #16803c;
+            color: #16803c;
 
-            font-weight:
-                bold;
+            font-weight: bold;
 
-            white-space:
-                nowrap;
+            white-space: nowrap;
         }
 
 
@@ -153,8 +169,7 @@
 
             border-radius: 50%;
 
-            background:
-                #19c463;
+            background: #19c463;
 
             animation:
                 pulse 1.5s infinite;
@@ -180,7 +195,6 @@
                     0 0 0 0
                     rgba(25,196,99,0);
             }
-
         }
 
 
@@ -190,23 +204,19 @@
 
         .section-title {
 
-            font-size:
-                1.3rem;
-
-            font-weight:
-                bold;
-
             margin:
-
                 30px 0 15px;
 
-            color:
-                #333;
+            color: #333;
+
+            font-size: 1.3rem;
+
+            font-weight: bold;
         }
 
 
         /* =====================================================
-           SENSOR GRID
+           SENSOR CARDS
         ====================================================== */
 
         .sensor-grid {
@@ -226,8 +236,7 @@
 
             border-radius: 18px;
 
-            background:
-                #f5faff;
+            background: #f5faff;
 
             border:
                 1px solid #dcecf9;
@@ -250,27 +259,21 @@
 
         .sensor-title {
 
-            color:
-                #666;
+            margin-bottom: 12px;
 
-            font-size:
-                0.95rem;
+            color: #666;
 
-            margin-bottom:
-                12px;
+            font-size: 0.95rem;
         }
 
 
         .sensor-value {
 
-            color:
-                #075ca8;
+            color: #075ca8;
 
-            font-size:
-                2rem;
+            font-size: 2rem;
 
-            font-weight:
-                bold;
+            font-weight: bold;
         }
 
 
@@ -286,22 +289,16 @@
                 1fr 1fr;
 
             gap: 18px;
-
-            margin-top:
-                20px;
         }
 
 
         .status-card {
 
-            padding:
-                22px;
+            padding: 22px;
 
-            border-radius:
-                18px;
+            border-radius: 18px;
 
-            background:
-                #f7f7f7;
+            background: #f7f7f7;
 
             border:
                 1px solid #ddd;
@@ -310,24 +307,19 @@
 
         .status-label {
 
-            color:
-                #666;
+            margin-bottom: 10px;
 
-            margin-bottom:
-                10px;
+            color: #666;
         }
 
 
         .status-value {
 
-            font-size:
-                1.25rem;
+            color: #16803c;
 
-            font-weight:
-                bold;
+            font-size: 1.25rem;
 
-            color:
-                #16803c;
+            font-weight: bold;
         }
 
 
@@ -337,11 +329,11 @@
 
         .weather-location {
 
-            color:
-                #777;
+            margin-bottom: 15px;
 
-            margin-bottom:
-                15px;
+            color: #777;
+
+            font-size: 0.9rem;
         }
 
 
@@ -358,11 +350,9 @@
 
         .weather-card {
 
-            padding:
-                20px;
+            padding: 20px;
 
-            border-radius:
-                18px;
+            border-radius: 18px;
 
             background:
                 linear-gradient(
@@ -378,37 +368,29 @@
 
         .weather-icon {
 
-            font-size:
-                1.7rem;
+            margin-bottom: 8px;
 
-            margin-bottom:
-                8px;
+            font-size: 1.7rem;
         }
 
 
         .weather-label {
 
-            font-size:
-                0.85rem;
+            margin-bottom: 8px;
 
-            color:
-                #777;
+            color: #777;
 
-            margin-bottom:
-                8px;
+            font-size: 0.85rem;
         }
 
 
         .weather-value {
 
-            font-size:
-                1.35rem;
+            color: #075ca8;
 
-            font-weight:
-                bold;
+            font-size: 1.35rem;
 
-            color:
-                #075ca8;
+            font-weight: bold;
         }
 
 
@@ -418,85 +400,133 @@
 
         .forecast {
 
-            display:
-                flex;
+            display: flex;
 
-            gap:
-                12px;
+            gap: 12px;
 
-            overflow-x:
-                auto;
+            overflow-x: auto;
 
-            padding-bottom:
-                10px;
+            padding-bottom: 10px;
         }
 
 
         .forecast-card {
 
-            min-width:
-                125px;
+            min-width: 125px;
 
-            padding:
-                15px;
+            padding: 15px;
 
-            border-radius:
-                15px;
+            border-radius: 15px;
 
-            background:
-                #f7fbff;
+            background: #f7fbff;
 
             border:
                 1px solid #e0edf8;
 
-            text-align:
-                center;
+            text-align: center;
         }
 
 
         .forecast-time {
 
-            font-size:
-                0.8rem;
+            margin-bottom: 8px;
 
-            color:
-                #777;
+            color: #777;
 
-            margin-bottom:
-                8px;
+            font-size: 0.8rem;
         }
 
 
         .forecast-icon {
 
-            font-size:
-                1.5rem;
+            margin-bottom: 8px;
 
-            margin-bottom:
-                8px;
+            font-size: 1.5rem;
         }
 
 
         .forecast-temp {
 
-            font-weight:
-                bold;
+            color: #075ca8;
 
-            color:
-                #075ca8;
+            font-weight: bold;
         }
 
 
         .forecast-rain {
 
-            font-size:
-                0.75rem;
+            margin-top: 5px;
 
-            color:
-                #1683d8;
+            color: #1683d8;
 
-            margin-top:
-                5px;
+            font-size: 0.75rem;
+        }
+
+
+        /* =====================================================
+           GIS MAP
+        ====================================================== */
+
+        .map-container {
+
+            padding: 20px;
+
+            border-radius: 18px;
+
+            background: #fff;
+
+            border:
+                1px solid #e5e5e5;
+
+            box-shadow:
+                0 5px 20px
+                rgba(0,0,0,0.04);
+        }
+
+
+        .map-title {
+
+            margin-bottom: 5px;
+
+            color: #333;
+
+            font-size: 1.15rem;
+
+            font-weight: bold;
+        }
+
+
+        .map-subtitle {
+
+            margin-bottom: 15px;
+
+            color: #777;
+
+            font-size: 0.85rem;
+        }
+
+
+        #mujgahanMap {
+
+            width: 100%;
+
+            height: 420px;
+
+            border-radius: 14px;
+
+            overflow: hidden;
+        }
+
+
+        .map-location {
+
+            margin-top: 12px;
+
+            color: #666;
+
+            font-size: 0.85rem;
+
+            text-align: center;
         }
 
 
@@ -506,30 +536,22 @@
 
         .graph-container {
 
-            background:
-                #ffffff;
+            padding: 20px;
+
+            border-radius: 18px;
+
+            background: #fff;
 
             border:
                 1px solid #e5e5e5;
-
-            border-radius:
-                18px;
-
-            padding:
-                20px;
-
-            margin-top:
-                25px;
         }
 
 
         .chart-wrapper {
 
-            position:
-                relative;
+            position: relative;
 
-            height:
-                320px;
+            height: 320px;
         }
 
 
@@ -539,49 +561,37 @@
 
         .update-time {
 
-            text-align:
-                center;
+            margin-top: 25px;
 
-            margin-top:
-                25px;
+            color: #666;
 
-            color:
-                #666;
+            font-size: 0.9rem;
 
-            font-size:
-                0.9rem;
+            text-align: center;
         }
 
 
         .connection {
 
-            text-align:
-                center;
+            margin-top: 8px;
 
-            margin-top:
-                8px;
+            color: #16803c;
 
-            font-size:
-                0.85rem;
+            font-size: 0.85rem;
 
-            color:
-                #888;
+            text-align: center;
         }
 
 
         .weather-update {
 
-            text-align:
-                center;
+            margin-top: 5px;
 
-            margin-top:
-                5px;
+            color: #999;
 
-            font-size:
-                0.8rem;
+            font-size: 0.8rem;
 
-            color:
-                #999;
+            text-align: center;
         }
 
 
@@ -615,26 +625,16 @@
         body.danger-mode
         .heading {
 
-            color:
-                #d60000;
+            color: #d60000;
         }
 
 
         body.danger-mode
         .status-card {
 
-            background:
-                #ffe5e5;
+            background: #ffe5e5;
 
-            border-color:
-                #ff9b9b;
-        }
-
-
-        .danger-text {
-
-            color:
-                #d60000 !important;
+            border-color: #ff9b9b;
         }
 
 
@@ -645,38 +645,34 @@
         @media (max-width: 800px) {
 
             body {
-                padding:
-                    12px;
+
+                padding: 12px;
             }
 
 
             .container {
-                padding:
-                    20px;
+
+                padding: 20px;
             }
 
 
             .header {
 
-                flex-direction:
-                    column;
+                flex-direction: column;
 
-                align-items:
-                    flex-start;
+                align-items: flex-start;
             }
 
 
             .heading {
 
-                font-size:
-                    1.7rem;
+                font-size: 1.7rem;
             }
 
 
             .sensor-grid {
 
-                grid-template-columns:
-                    1fr;
+                grid-template-columns: 1fr;
             }
 
 
@@ -689,15 +685,19 @@
 
             .status-panel {
 
-                grid-template-columns:
-                    1fr;
+                grid-template-columns: 1fr;
+            }
+
+
+            #mujgahanMap {
+
+                height: 300px;
             }
 
 
             .chart-wrapper {
 
-                height:
-                    260px;
+                height: 260px;
             }
 
         }
@@ -745,7 +745,7 @@
 
 
     <!-- =====================================================
-         ESP SENSOR DATA
+         SENSOR MONITORING
     ====================================================== -->
 
     <div class="section-title">
@@ -808,7 +808,7 @@
 
 
     <!-- =====================================================
-         LANDSLIDE STATUS
+         LANDSLIDE ASSESSMENT
     ====================================================== -->
 
     <div class="section-title">
@@ -966,7 +966,7 @@
 
 
     <!-- =====================================================
-         WEATHER FORECAST
+         HOURLY FORECAST
     ====================================================== -->
 
     <div class="section-title">
@@ -992,7 +992,42 @@
 
 
     <!-- =====================================================
-         SENSOR GRAPH
+         GIS MAP
+    ====================================================== -->
+
+    <div class="section-title">
+        GIS Location
+    </div>
+
+
+    <div class="map-container">
+
+
+        <div class="map-title">
+            🗺️ Mujgahan Location
+        </div>
+
+
+        <div class="map-subtitle">
+            Geographic location of the monitoring area
+        </div>
+
+
+        <div id="mujgahanMap"></div>
+
+
+        <div class="map-location">
+
+            📍 Mujgahan, Raipur, Chhattisgarh
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         SENSOR HISTORY
     ====================================================== -->
 
     <div class="section-title">
@@ -1005,8 +1040,8 @@
         <div class="chart-wrapper">
 
             <canvas
-                id="sensorChart"
-            ></canvas>
+                id="sensorChart">
+            </canvas>
 
         </div>
 
@@ -1039,7 +1074,7 @@
 
 
 <!-- =========================================================
-     FIREBASE + WEATHER JAVASCRIPT
+     FIREBASE
 ========================================================= -->
 
 <script type="module">
@@ -1076,8 +1111,10 @@
 
     // =========================================================
     // FIREBASE CONFIG
+    //
+    // IMPORTANT:
+    // YAHAN APNA EXISTING WORKING FIREBASE CONFIG PASTE KARO
     // =========================================================
-
 
     const firebaseConfig = {
 
@@ -1106,10 +1143,8 @@
     };
 
 
-
-
     // =========================================================
-    // FIREBASE INITIALIZATION
+    // FIREBASE INITIALIZE
     // =========================================================
 
     const app =
@@ -1145,14 +1180,17 @@
 
 
     function createChart(
+
         labels,
         moistureData,
         rainData,
         angleData
+
     ) {
 
 
         const ctx =
+
             document
                 .getElementById(
                     "sensorChart"
@@ -1168,8 +1206,11 @@
 
 
         sensorChart =
+
             new Chart(
+
                 ctx,
+
                 {
 
                     type:
@@ -1262,7 +1303,6 @@
                         maintainAspectRatio:
                             false,
 
-
                         interaction: {
 
                             mode:
@@ -1276,6 +1316,7 @@
                     }
 
                 }
+
             );
 
     }
@@ -1311,6 +1352,7 @@
             records.sort(
 
                 (a, b) =>
+
                     (a.timestamp || 0)
                     -
                     (b.timestamp || 0)
@@ -1356,7 +1398,6 @@
                 "--";
 
 
-
             document
                 .getElementById(
                     "rain"
@@ -1375,7 +1416,6 @@
                 :
 
                 "--";
-
 
 
             document
@@ -1419,12 +1459,14 @@
 
                     break;
 
+
                 case 1:
 
                     probability =
                         "Low Chance";
 
                     break;
+
 
                 case 2:
 
@@ -1433,12 +1475,14 @@
 
                     break;
 
+
                 case 3:
 
                     probability =
                         "High Chance";
 
                     break;
+
 
                 default:
 
@@ -1477,6 +1521,7 @@
 
                     break;
 
+
                 case 1:
 
                     slopeStatus =
@@ -1484,12 +1529,14 @@
 
                     break;
 
+
                 case 2:
 
                     slopeStatus =
                         "Landslide";
 
                     break;
+
 
                 default:
 
@@ -1558,10 +1605,13 @@
             ) {
 
                 const date =
+
                     new Date(
+
                         Number(
                             latest.timestamp
                         ) * 1000
+
                     );
 
 
@@ -1572,10 +1622,10 @@
                     .textContent =
 
                     "Last Sensor Update: " +
+
                     date.toLocaleString();
 
             }
-
 
 
             document
@@ -1583,20 +1633,13 @@
                     "connection"
                 )
                 .textContent =
+
                 "● Firebase Connected • Live Data";
-
-
-            document
-                .getElementById(
-                    "connection"
-                )
-                .style.color =
-                "#16803c";
 
 
 
             // =================================================
-            // GRAPH
+            // GRAPH DATA
             // =================================================
 
             const labels = [];
@@ -1622,14 +1665,20 @@
                     ) {
 
                         time =
+
                             new Date(
+
                                 Number(
                                     record.timestamp
                                 ) * 1000
+
                             )
                             .toLocaleTimeString(
+
                                 [],
+
                                 {
+
                                     hour:
                                         "2-digit",
 
@@ -1638,7 +1687,9 @@
 
                                     second:
                                         "2-digit"
+
                                 }
+
                             );
 
                     }
@@ -1650,29 +1701,36 @@
 
 
                     moistureData.push(
+
                         Number(
                             record.soilMoisture ||
                             0
                         )
+
                     );
 
 
                     rainData.push(
+
                         Number(
                             record.rain ||
                             0
                         )
+
                     );
 
 
                     angleData.push(
+
                         Number(
                             record.angle ||
                             0
                         )
+
                     );
 
                 }
+
             );
 
 
@@ -1693,7 +1751,9 @@
 
         (error) => {
 
+
             console.error(
+                "Firebase Error:",
                 error
             );
 
@@ -1703,6 +1763,7 @@
                     "connection"
                 )
                 .textContent =
+
                 "● Firebase Connection Error";
 
 
@@ -1720,26 +1781,16 @@
 
 
     // =========================================================
-    // WEATHER
+    // WEATHER API
     // =========================================================
 
     const LATITUDE =
         21.136720;
 
+
     const LONGITUDE =
         81.670680;
 
-
-    /*
-     * Open-Meteo:
-     *
-     * No API key required.
-     *
-     * Mujgahan coordinates:
-     *
-     * 21.136720
-     * 81.670680
-     */
 
 
     async function loadWeather() {
@@ -1804,14 +1855,14 @@
                 await response.json();
 
 
+            const current =
+                weather.current;
+
+
 
             // =================================================
             // CURRENT WEATHER
             // =================================================
-
-            const current =
-                weather.current;
-
 
             document
                 .getElementById(
@@ -1868,6 +1919,7 @@
             // =================================================
 
             const forecast =
+
                 document
                     .getElementById(
                         "forecast"
@@ -1877,10 +1929,6 @@
             forecast.innerHTML = "";
 
 
-            /*
-             * Show next 12 hours
-             */
-
             for (
                 let i = 0;
                 i < 12;
@@ -1889,6 +1937,7 @@
 
 
                 const time =
+
                     new Date(
                         weather
                             .hourly
@@ -1897,30 +1946,28 @@
 
 
                 const temperature =
+
                     weather
                         .hourly
                         .temperature_2m[i];
 
 
-                const rain =
-                    weather
-                        .hourly
-                        .rain[i];
-
-
                 const rainProbability =
+
                     weather
                         .hourly
                         .precipitation_probability[i];
 
 
                 const weatherCode =
+
                     weather
                         .hourly
                         .weather_code[i];
 
 
                 const card =
+
                     document
                         .createElement(
                             "div"
@@ -1937,14 +1984,19 @@
 
                         ${
                             time.toLocaleTimeString(
+
                                 [],
+
                                 {
+
                                     hour:
                                         "2-digit",
 
                                     minute:
                                         "2-digit"
+
                                 }
+
                             )
                         }
 
@@ -1986,17 +2038,13 @@
 
 
 
-            // =================================================
-            // UPDATE TIME
-            // =================================================
-
             document
                 .getElementById(
                     "weatherUpdate"
                 )
                 .textContent =
 
-                "Weather data updated: " +
+                "Weather updated: " +
 
                 new Date()
                     .toLocaleTimeString();
@@ -2114,9 +2162,13 @@
 
 
         return (
+
             descriptions[code]
+
             ||
+
             "Unknown"
+
         );
 
     }
@@ -2132,7 +2184,9 @@
     ) {
 
 
-        if (code === 0) {
+        if (
+            code === 0
+        ) {
 
             return "☀️";
 
@@ -2149,7 +2203,9 @@
         }
 
 
-        if (code === 3) {
+        if (
+            code === 3
+        ) {
 
             return "☁️";
 
@@ -2212,23 +2268,157 @@
 
 
     // =========================================================
-    // INITIAL WEATHER LOAD
+    // LOAD WEATHER
     // =========================================================
 
     loadWeather();
 
 
-
     /*
-     * Weather API ko har 15 minutes me refresh karenge.
-     *
-     * Firebase live data continuously update hota rahega.
+     * Weather refresh:
+     * Every 15 minutes
      */
 
     setInterval(
+
         loadWeather,
+
         15 * 60 * 1000
+
     );
+
+
+
+</script>
+
+
+
+<!-- =========================================================
+     GIS MAP SCRIPT
+========================================================= -->
+
+<script>
+
+
+    // =========================================================
+    // MUJGAHAN COORDINATES
+    // =========================================================
+
+    const mujgahanLatitude =
+        21.136720;
+
+
+    const mujgahanLongitude =
+        81.670680;
+
+
+
+    // =========================================================
+    // CREATE MAP
+    // =========================================================
+
+    const mujgahanMap =
+
+        L.map(
+
+            "mujgahanMap"
+
+        )
+        .setView(
+
+            [
+
+                mujgahanLatitude,
+
+                mujgahanLongitude
+
+            ],
+
+            14
+
+        );
+
+
+
+    // =========================================================
+    // OPENSTREETMAP TILE LAYER
+    // =========================================================
+
+    L.tileLayer(
+
+        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+
+        {
+
+            maxZoom: 19,
+
+            attribution:
+                "&copy; OpenStreetMap contributors"
+
+        }
+
+    )
+    .addTo(
+        mujgahanMap
+    );
+
+
+
+    // =========================================================
+    // MUJGAHAN MARKER
+    // =========================================================
+
+    const mujgahanMarker =
+
+        L.marker(
+
+            [
+
+                mujgahanLatitude,
+
+                mujgahanLongitude
+
+            ]
+
+        )
+        .addTo(
+            mujgahanMap
+        );
+
+
+
+    // =========================================================
+    // MARKER POPUP
+    // =========================================================
+
+    mujgahanMarker
+        .bindPopup(
+
+            `
+
+            <div style="text-align:center">
+
+                <strong>
+                    Mujgahan
+                </strong>
+
+                <br>
+
+                Raipur, Chhattisgarh
+
+                <br><br>
+
+                📍 Monitoring Area
+
+            </div>
+
+            `
+
+        );
+
+
+    mujgahanMarker.openPopup();
+
 
 
 </script>
