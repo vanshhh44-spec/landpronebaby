@@ -5,10 +5,7 @@
 
     <meta charset="UTF-8">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
         JNV Lawan Landslide Monitoring
@@ -26,13 +23,9 @@
          LEAFLET GIS
     ====================================================== -->
 
-    <link
-        rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    >
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
-    <script
-        src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
     </script>
 
 
@@ -41,7 +34,6 @@
     ====================================================== -->
 
     <style>
-
         * {
             box-sizing: border-box;
         }
@@ -61,11 +53,9 @@
                 sans-serif;
 
             background:
-                linear-gradient(
-                    135deg,
+                linear-gradient(135deg,
                     #eaf4ff,
-                    #f8fbff
-                );
+                    #f8fbff);
 
             color: #222;
 
@@ -89,13 +79,12 @@
             padding: 30px;
 
             background:
-                rgba(255,255,255,0.97);
+                rgba(255, 255, 255, 0.97);
 
             border-radius: 24px;
 
             box-shadow:
-                0 20px 60px
-                rgba(0,0,0,0.12);
+                0 20px 60px rgba(0, 0, 0, 0.12);
         }
 
 
@@ -180,20 +169,17 @@
 
             0% {
                 box-shadow:
-                    0 0 0 0
-                    rgba(25,196,99,0.6);
+                    0 0 0 0 rgba(25, 196, 99, 0.6);
             }
 
             70% {
                 box-shadow:
-                    0 0 0 10px
-                    rgba(25,196,99,0);
+                    0 0 0 10px rgba(25, 196, 99, 0);
             }
 
             100% {
                 box-shadow:
-                    0 0 0 0
-                    rgba(25,196,99,0);
+                    0 0 0 0 rgba(25, 196, 99, 0);
             }
         }
 
@@ -252,8 +238,7 @@
                 translateY(-4px);
 
             box-shadow:
-                0 12px 30px
-                rgba(0,0,0,0.08);
+                0 12px 30px rgba(0, 0, 0, 0.08);
         }
 
 
@@ -355,11 +340,9 @@
             border-radius: 18px;
 
             background:
-                linear-gradient(
-                    135deg,
+                linear-gradient(135deg,
                     #eef7ff,
-                    #f8fbff
-                );
+                    #f8fbff);
 
             border:
                 1px solid #dcecf9;
@@ -479,8 +462,7 @@
                 1px solid #e5e5e5;
 
             box-shadow:
-                0 5px 20px
-                rgba(0,0,0,0.04);
+                0 5px 20px rgba(0, 0, 0, 0.04);
         }
 
 
@@ -602,35 +584,29 @@
         body.danger-mode {
 
             background:
-                linear-gradient(
-                    135deg,
+                linear-gradient(135deg,
                     #ffe1e1,
-                    #fff5f5
-                );
+                    #fff5f5);
         }
 
 
-        body.danger-mode
-        .container {
+        body.danger-mode .container {
 
             border:
                 2px solid #ff4545;
 
             box-shadow:
-                0 20px 60px
-                rgba(255,0,0,0.2);
+                0 20px 60px rgba(255, 0, 0, 0.2);
         }
 
 
-        body.danger-mode
-        .heading {
+        body.danger-mode .heading {
 
             color: #d60000;
         }
 
 
-        body.danger-mode
-        .status-card {
+        body.danger-mode .status-card {
 
             background: #ffe5e5;
 
@@ -701,7 +677,6 @@
             }
 
         }
-
     </style>
 
 </head>
@@ -710,375 +685,330 @@
 <body>
 
 
-<div class="container">
+    <div class="container">
 
 
-    <!-- =====================================================
+        <!-- =====================================================
          HEADER
     ====================================================== -->
 
-    <div class="header">
+        <div class="header">
 
-        <div>
+            <div>
 
-            <h1 class="heading">
-                Landslide Monitoring System
-            </h1>
+                <h1 class="heading">
+                    Landslide Monitoring System
+                </h1>
 
-            <div class="subtitle">
-                JNV Lawan • Real-Time Monitoring
+                <div class="subtitle">
+                    Mujgahan • Real-Time Monitoring
+                </div>
+
+            </div>
+
+
+            <div class="live-box">
+
+                <span class="live-dot"></span>
+
+                LIVE
+
             </div>
 
         </div>
 
 
-        <div class="live-box">
 
-            <span class="live-dot"></span>
-
-            LIVE
-
-        </div>
-
-    </div>
-
-
-
-    <!-- =====================================================
+        <!-- =====================================================
          SENSOR MONITORING
     ====================================================== -->
 
-    <div class="section-title">
-        Sensor Monitoring
-    </div>
+        <div class="section-title">
+            Sensor Monitoring
+        </div>
 
 
-    <div class="sensor-grid">
+        <div class="sensor-grid">
 
 
-        <div class="sensor-card">
+            <div class="sensor-card">
 
-            <div class="sensor-title">
-                🌱 Soil Moisture
+                <div class="sensor-title">
+                    🌱 Soil Moisture
+                </div>
+
+                <div id="moisture" class="sensor-value">
+                    --
+                </div>
+
             </div>
 
-            <div
-                id="moisture"
-                class="sensor-value"
-            >
-                --
+
+            <div class="sensor-card">
+
+                <div class="sensor-title">
+                    🌧 Rain Sensor
+                </div>
+
+                <div id="rain" class="sensor-value">
+                    --
+                </div>
+
+            </div>
+
+
+            <div class="sensor-card">
+
+                <div class="sensor-title">
+                    📐 Surface Angle
+                </div>
+
+                <div id="angle" class="sensor-value">
+                    --
+                </div>
+
             </div>
 
         </div>
 
 
-        <div class="sensor-card">
 
-            <div class="sensor-title">
-                🌧 Rain Sensor
-            </div>
-
-            <div
-                id="rain"
-                class="sensor-value"
-            >
-                --
-            </div>
-
-        </div>
-
-
-        <div class="sensor-card">
-
-            <div class="sensor-title">
-                📐 Surface Angle
-            </div>
-
-            <div
-                id="angle"
-                class="sensor-value"
-            >
-                --
-            </div>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- =====================================================
+        <!-- =====================================================
          LANDSLIDE ASSESSMENT
     ====================================================== -->
 
-    <div class="section-title">
-        Landslide Assessment
-    </div>
+        <div class="section-title">
+            Landslide Assessment
+        </div>
 
 
-    <div class="status-panel">
+        <div class="status-panel">
 
 
-        <div class="status-card">
+            <div class="status-card">
 
-            <div class="status-label">
-                Probability of Landslide
+                <div class="status-label">
+                    Probability of Landslide
+                </div>
+
+                <div id="landSchance" class="status-value">
+                    --
+                </div>
+
             </div>
 
-            <div
-                id="landSchance"
-                class="status-value"
-            >
-                --
+
+            <div class="status-card">
+
+                <div class="status-label">
+                    Status of Land Slope
+                </div>
+
+                <div id="slopeStatus" class="status-value">
+                    --
+                </div>
+
             </div>
 
         </div>
 
 
-        <div class="status-card">
 
-            <div class="status-label">
-                Status of Land Slope
-            </div>
-
-            <div
-                id="slopeStatus"
-                class="status-value"
-            >
-                --
-            </div>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- =====================================================
+        <!-- =====================================================
          WEATHER
     ====================================================== -->
 
-    <div class="section-title">
-        Weather Conditions
-    </div>
-
-
-    <div class="weather-location">
-
-        📍 Mujgahan, Raipur, Chhattisgarh
-
-    </div>
-
-
-    <div class="weather-grid">
-
-
-        <div class="weather-card">
-
-            <div class="weather-icon">
-                🌡️
-            </div>
-
-            <div class="weather-label">
-                Temperature
-            </div>
-
-            <div
-                id="weatherTemp"
-                class="weather-value"
-            >
-                --
-            </div>
-
+        <div class="section-title">
+            Weather Conditions
         </div>
 
 
-        <div class="weather-card">
-
-            <div class="weather-icon">
-                💧
-            </div>
-
-            <div class="weather-label">
-                Humidity
-            </div>
-
-            <div
-                id="weatherHumidity"
-                class="weather-value"
-            >
-                --
-            </div>
-
-        </div>
-
-
-        <div class="weather-card">
-
-            <div class="weather-icon">
-                🌧️
-            </div>
-
-            <div class="weather-label">
-                Rain
-            </div>
-
-            <div
-                id="weatherRain"
-                class="weather-value"
-            >
-                --
-            </div>
-
-        </div>
-
-
-        <div class="weather-card">
-
-            <div class="weather-icon">
-                💨
-            </div>
-
-            <div class="weather-label">
-                Wind
-            </div>
-
-            <div
-                id="weatherWind"
-                class="weather-value"
-            >
-                --
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <div
-        id="weatherCondition"
-        class="weather-location"
-        style="margin-top:15px;"
-    >
-        Weather condition: --
-    </div>
-
-
-
-    <!-- =====================================================
-         HOURLY FORECAST
-    ====================================================== -->
-
-    <div class="section-title">
-        Hourly Weather Forecast
-    </div>
-
-
-    <div
-        id="forecast"
-        class="forecast"
-    >
-        Loading forecast...
-    </div>
-
-
-    <div
-        id="weatherUpdate"
-        class="weather-update"
-    >
-        Weather data loading...
-    </div>
-
-
-
-    <!-- =====================================================
-         GIS MAP
-    ====================================================== -->
-
-    <div class="section-title">
-        GIS Location
-    </div>
-
-
-    <div class="map-container">
-
-
-        <div class="map-title">
-            🗺️ Mujgahan Location
-        </div>
-
-
-        <div class="map-subtitle">
-            Geographic location of the monitoring area
-        </div>
-
-
-        <div id="mujgahanMap"></div>
-
-
-        <div class="map-location">
+        <div class="weather-location">
 
             📍 Mujgahan, Raipur, Chhattisgarh
 
         </div>
 
-    </div>
+
+        <div class="weather-grid">
 
 
+            <div class="weather-card">
 
-    <!-- =====================================================
-         SENSOR HISTORY
-    ====================================================== -->
+                <div class="weather-icon">
+                    🌡️
+                </div>
 
-    <div class="section-title">
-        Sensor History
-    </div>
+                <div class="weather-label">
+                    Temperature
+                </div>
+
+                <div id="weatherTemp" class="weather-value">
+                    --
+                </div>
+
+            </div>
 
 
-    <div class="graph-container">
+            <div class="weather-card">
 
-        <div class="chart-wrapper">
+                <div class="weather-icon">
+                    💧
+                </div>
 
-            <canvas
-                id="sensorChart">
-            </canvas>
+                <div class="weather-label">
+                    Humidity
+                </div>
+
+                <div id="weatherHumidity" class="weather-value">
+                    --
+                </div>
+
+            </div>
+
+
+            <div class="weather-card">
+
+                <div class="weather-icon">
+                    🌧️
+                </div>
+
+                <div class="weather-label">
+                    Rain
+                </div>
+
+                <div id="weatherRain" class="weather-value">
+                    --
+                </div>
+
+            </div>
+
+
+            <div class="weather-card">
+
+                <div class="weather-icon">
+                    💨
+                </div>
+
+                <div class="weather-label">
+                    Wind
+                </div>
+
+                <div id="weatherWind" class="weather-value">
+                    --
+                </div>
+
+            </div>
 
         </div>
 
-    </div>
+
+        <div id="weatherCondition" class="weather-location" style="margin-top:15px;">
+            Weather condition: --
+        </div>
 
 
 
-    <!-- =====================================================
+        <!-- =====================================================
+         HOURLY FORECAST
+    ====================================================== -->
+
+        <div class="section-title">
+            Hourly Weather Forecast
+        </div>
+
+
+        <div id="forecast" class="forecast">
+            Loading forecast...
+        </div>
+
+
+        <div id="weatherUpdate" class="weather-update">
+            Weather data loading...
+        </div>
+
+
+
+        <!-- =====================================================
+         GIS MAP
+    ====================================================== -->
+
+        <div class="section-title">
+            GIS Location
+        </div>
+
+
+        <div class="map-container">
+
+
+            <div class="map-title">
+                🗺️ Mujgahan Location
+            </div>
+
+
+            <div class="map-subtitle">
+                Geographic location of the monitoring area
+            </div>
+
+
+            <div id="mujgahanMap"></div>
+
+
+            <div class="map-location">
+
+                📍 Mujgahan, Raipur, Chhattisgarh
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================================
+         SENSOR HISTORY
+    ====================================================== -->
+
+        <div class="section-title">
+            Sensor History
+        </div>
+
+
+        <div class="graph-container">
+
+            <div class="chart-wrapper">
+
+                <canvas id="sensorChart">
+                </canvas>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =====================================================
          STATUS
     ====================================================== -->
 
-    <div
-        id="update-time"
-        class="update-time"
-    >
-        Last Sensor Update: --
+        <div id="update-time" class="update-time">
+            Last Sensor Update: --
+        </div>
+
+
+        <div id="connection" class="connection">
+            Connecting to Firebase...
+        </div>
+
+
     </div>
 
 
-    <div
-        id="connection"
-        class="connection"
-    >
-        Connecting to Firebase...
-    </div>
 
-
-</div>
-
-
-
-<!-- =========================================================
+    <!-- =========================================================
      FIREBASE
 ========================================================= -->
 
-<script type="module">
-
+    <script type="module">
 
     // =========================================================
     // FIREBASE IMPORTS
@@ -1086,34 +1016,19 @@
 
     import {
         initializeApp
-    }
-    from
-    "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
     import {
-
         getDatabase,
-
         ref,
-
         onValue,
-
         query,
-
         limitToLast
-
-    }
-    from
-    "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 
     // =========================================================
     // FIREBASE CONFIG
-    //
-    // IMPORTANT:
-    // YAHAN APNA EXISTING WORKING FIREBASE CONFIG PASTE KARO
     // =========================================================
 
     const firebaseConfig = {
@@ -1137,9 +1052,6 @@
 
         appId:
             "1:791498088764:web:882611deb10d667c1dbe39"
-
-        
-
     };
 
 
@@ -1147,29 +1059,16 @@
     // FIREBASE INITIALIZE
     // =========================================================
 
-    const app =
-        initializeApp(
-            firebaseConfig
-        );
+    const app = initializeApp(firebaseConfig);
 
+    const database = getDatabase(app);
 
-    const database =
-        getDatabase(app);
+    const sensorRef = ref(database, "sensor");
 
-
-    const sensorRef =
-        ref(
-            database,
-            "sensor"
-        );
-
-
-    const sensorQuery =
-        query(
-            sensorRef,
-            limitToLast(30)
-        );
-
+    const sensorQuery = query(
+        sensorRef,
+        limitToLast(30)
+    );
 
 
     // =========================================================
@@ -1180,147 +1079,212 @@
 
 
     function createChart(
-
         labels,
         moistureData,
         rainData,
         angleData
-
     ) {
 
+        const canvas =
+            document.getElementById("sensorChart");
 
-        const ctx =
+        if (!canvas) {
+            return;
+        }
 
-            document
-                .getElementById(
-                    "sensorChart"
-                )
-                .getContext("2d");
+        const ctx = canvas.getContext("2d");
 
 
         if (sensorChart) {
-
             sensorChart.destroy();
+        }
+
+
+        sensorChart = new Chart(
+            ctx,
+            {
+                type: "line",
+
+                data: {
+
+                    labels: labels,
+
+                    datasets: [
+
+                        {
+                            label: "Soil Moisture (%)",
+
+                            data: moistureData,
+
+                            borderColor: "#16a34a",
+
+                            backgroundColor:
+                                "rgba(22,163,74,0.08)",
+
+                            tension: 0.35,
+
+                            fill: true
+                        },
+
+                        {
+                            label: "Rain (%)",
+
+                            data: rainData,
+
+                            borderColor: "#1683d8",
+
+                            backgroundColor:
+                                "rgba(22,131,216,0.08)",
+
+                            tension: 0.35,
+
+                            fill: true
+                        },
+
+                        {
+                            label: "Surface Angle (°)",
+
+                            data: angleData,
+
+                            borderColor: "#f59e0b",
+
+                            backgroundColor:
+                                "rgba(245,158,11,0.08)",
+
+                            tension: 0.35,
+
+                            fill: false
+                        }
+
+                    ]
+                },
+
+                options: {
+
+                    responsive: true,
+
+                    maintainAspectRatio: false,
+
+                    interaction: {
+
+                        mode: "index",
+
+                        intersect: false
+                    },
+
+                    scales: {
+
+                        y: {
+
+                            beginAtZero: false
+                        }
+
+                    }
+                }
+            }
+        );
+    }
+
+
+    // =========================================================
+    // LANDSLIDE RISK CALCULATION
+    // =========================================================
+
+    function calculateLandslideRisk(
+        moisture,
+        rain,
+        slope
+    ) {
+
+        const absSlope = Math.abs(slope);
+
+        let score = 0;
+
+
+        // -----------------------------------------
+        // MOISTURE
+        // -----------------------------------------
+
+        if (moisture >= 80) {
+
+            score += 2;
+
+        }
+        else if (moisture >= 60) {
+
+            score += 1;
+        }
+
+
+        // -----------------------------------------
+        // RAIN
+        // -----------------------------------------
+
+        if (rain >= 80) {
+
+            score += 2;
+
+        }
+        else if (rain >= 50) {
+
+            score += 1;
+        }
+
+
+        // -----------------------------------------
+        // SLOPE
+        // -----------------------------------------
+
+        if (absSlope >= 30) {
+
+            score += 2;
+
+        }
+        else if (absSlope >= 15) {
+
+            score += 1;
+        }
+
+
+        // -----------------------------------------
+        // RESULT
+        // -----------------------------------------
+
+        if (score >= 5) {
+
+            return {
+                probability: "High Chance",
+                status: "Landslide"
+            };
 
         }
 
 
-        sensorChart =
+        if (score >= 3) {
 
-            new Chart(
+            return {
+                probability: "Moderate Chance",
+                status: "Unusual Land Movement"
+            };
 
-                ctx,
-
-                {
-
-                    type:
-                        "line",
+        }
 
 
-                    data: {
+        if (score >= 1) {
 
-                        labels:
-                            labels,
+            return {
+                probability: "Low Chance",
+                status: "Stable"
+            };
 
-
-                        datasets: [
-
-                            {
-
-                                label:
-                                    "Soil Moisture (%)",
-
-                                data:
-                                    moistureData,
-
-                                borderColor:
-                                    "#16a34a",
-
-                                backgroundColor:
-                                    "rgba(22,163,74,0.08)",
-
-                                tension:
-                                    0.35,
-
-                                fill:
-                                    true
-
-                            },
+        }
 
 
-                            {
-
-                                label:
-                                    "Rain (%)",
-
-                                data:
-                                    rainData,
-
-                                borderColor:
-                                    "#1683d8",
-
-                                backgroundColor:
-                                    "rgba(22,131,216,0.08)",
-
-                                tension:
-                                    0.35,
-
-                                fill:
-                                    true
-
-                            },
-
-
-                            {
-
-                                label:
-                                    "Surface Angle (°)",
-
-                                data:
-                                    angleData,
-
-                                borderColor:
-                                    "#f59e0b",
-
-                                tension:
-                                    0.35,
-
-                                fill:
-                                    false
-
-                            }
-
-                        ]
-
-                    },
-
-
-                    options: {
-
-                        responsive:
-                            true,
-
-                        maintainAspectRatio:
-                            false,
-
-                        interaction: {
-
-                            mode:
-                                "index",
-
-                            intersect:
-                                false
-
-                        }
-
-                    }
-
-                }
-
-            );
-
+        return {
+            probability: "Nearly No Chance",
+            status: "No Landslide"
+        };
     }
-
 
 
     // =========================================================
@@ -1333,17 +1297,23 @@
 
         (snapshot) => {
 
-
-            const data =
-                snapshot.val();
+            const data = snapshot.val();
 
 
             if (!data) {
 
-                return;
+                document
+                    .getElementById("connection")
+                    .textContent =
+                    "● Firebase Connected • No Sensor Data";
 
+                return;
             }
 
+
+            // -----------------------------------------
+            // GET ALL RECORDS
+            // -----------------------------------------
 
             const records =
                 Object.values(data);
@@ -1353,289 +1323,159 @@
 
                 (a, b) =>
 
-                    (a.timestamp || 0)
+                    Number(a.timestamp || 0)
                     -
-                    (b.timestamp || 0)
+                    Number(b.timestamp || 0)
 
             );
 
 
             const latest =
-                records[
-                    records.length - 1
-                ];
+                records[records.length - 1];
 
 
             if (!latest) {
-
                 return;
-
             }
 
 
+            // =================================================
+            // IMPORTANT
+            //
+            // PYTHON UPLOADER SHOULD SEND:
+            //
+            // moisture
+            // rain
+            // slope
+            // timestamp
+            // =================================================
+
+
+            const moisture =
+                Number(latest.moisture ?? 0);
+
+
+            const rain =
+                Number(latest.rain ?? 0);
+
+
+            const slope =
+                Number(latest.slope ?? 0);
+
 
             // =================================================
-            // SENSOR VALUES
+            // SENSOR CARDS
             // =================================================
 
             document
-                .getElementById(
-                    "moisture"
-                )
+                .getElementById("moisture")
                 .textContent =
-
-                latest.soilMoisture !==
-                undefined
-
-                ?
-
-                `${Number(
-                    latest.soilMoisture
-                ).toFixed(1)}%`
-
-                :
-
-                "--";
+                `${moisture.toFixed(1)}%`;
 
 
             document
-                .getElementById(
-                    "rain"
-                )
+                .getElementById("rain")
                 .textContent =
-
-                latest.rain !==
-                undefined
-
-                ?
-
-                `${Number(
-                    latest.rain
-                ).toFixed(1)}%`
-
-                :
-
-                "--";
+                `${rain.toFixed(1)}%`;
 
 
             document
-                .getElementById(
-                    "angle"
-                )
+                .getElementById("angle")
                 .textContent =
-
-                latest.angle !==
-                undefined
-
-                ?
-
-                `${Number(
-                    latest.angle
-                ).toFixed(1)}°`
-
-                :
-
-                "--";
-
+                `${slope.toFixed(1)}°`;
 
 
             // =================================================
-            // LANDSLIDE PROBABILITY
+            // LANDSLIDE ASSESSMENT
             // =================================================
 
-            let probability;
-
-
-            switch (
-                Number(
-                    latest.lsc
-                )
-            ) {
-
-                case 0:
-
-                    probability =
-                        "Nearly No Chance";
-
-                    break;
-
-
-                case 1:
-
-                    probability =
-                        "Low Chance";
-
-                    break;
-
-
-                case 2:
-
-                    probability =
-                        "Moderate Chance";
-
-                    break;
-
-
-                case 3:
-
-                    probability =
-                        "High Chance";
-
-                    break;
-
-
-                default:
-
-                    probability =
-                        "--";
-
-            }
+            const risk =
+                calculateLandslideRisk(
+                    moisture,
+                    rain,
+                    slope
+                );
 
 
             document
-                .getElementById(
-                    "landSchance"
-                )
+                .getElementById("landSchance")
                 .textContent =
-                probability;
-
-
-
-            // =================================================
-            // SLOPE STATUS
-            // =================================================
-
-            let slopeStatus;
-
-
-            switch (
-                Number(
-                    latest.sS
-                )
-            ) {
-
-                case 0:
-
-                    slopeStatus =
-                        "No Landslide";
-
-                    break;
-
-
-                case 1:
-
-                    slopeStatus =
-                        "Unusual Land Movement";
-
-                    break;
-
-
-                case 2:
-
-                    slopeStatus =
-                        "Landslide";
-
-                    break;
-
-
-                default:
-
-                    slopeStatus =
-                        "--";
-
-            }
+                risk.probability;
 
 
             document
-                .getElementById(
-                    "slopeStatus"
-                )
+                .getElementById("slopeStatus")
                 .textContent =
-                slopeStatus;
-
+                risk.status;
 
 
             // =================================================
             // DANGER MODE
             // =================================================
 
-            const danger =
+            if (
 
-                Number(
-                    latest.lsc
-                ) >= 2
+                risk.probability ===
+                "High Chance"
 
                 ||
 
-                Number(
-                    latest.sS
-                ) === 2;
+                risk.status ===
+                "Landslide"
 
-
-            if (danger) {
+            ) {
 
                 document
                     .body
                     .classList
-                    .add(
-                        "danger-mode"
-                    );
+                    .add("danger-mode");
 
             }
-
             else {
 
                 document
                     .body
                     .classList
-                    .remove(
-                        "danger-mode"
-                    );
-
+                    .remove("danger-mode");
             }
-
 
 
             // =================================================
             // TIMESTAMP
             // =================================================
 
-            if (
-                latest.timestamp
-            ) {
+            if (latest.timestamp) {
 
                 const date =
 
                     new Date(
-
-                        Number(
-                            latest.timestamp
-                        ) * 1000
-
+                        Number(latest.timestamp) * 1000
                     );
 
 
                 document
-                    .getElementById(
-                        "update-time"
-                    )
+                    .getElementById("update-time")
                     .textContent =
 
                     "Last Sensor Update: " +
-
                     date.toLocaleString();
-
             }
 
 
-            document
-                .getElementById(
-                    "connection"
-                )
-                .textContent =
+            // =================================================
+            // CONNECTION
+            // =================================================
 
+            document
+                .getElementById("connection")
+                .textContent =
                 "● Firebase Connected • Live Data";
 
+
+            document
+                .getElementById("connection")
+                .style.color =
+                "#16803c";
 
 
             // =================================================
@@ -1655,76 +1495,63 @@
 
                 record => {
 
-
-                    let time =
-                        "--";
+                    let time = "--";
 
 
-                    if (
-                        record.timestamp
-                    ) {
+                    if (record.timestamp) {
 
                         time =
 
                             new Date(
-
                                 Number(
                                     record.timestamp
                                 ) * 1000
-
                             )
                             .toLocaleTimeString(
 
                                 [],
 
                                 {
-
-                                    hour:
-                                        "2-digit",
-
-                                    minute:
-                                        "2-digit",
-
-                                    second:
-                                        "2-digit"
-
+                                    hour: "2-digit",
+                                    minute: "2-digit",
+                                    second: "2-digit"
                                 }
 
                             );
-
                     }
 
 
-                    labels.push(
-                        time
-                    );
+                    labels.push(time);
 
+
+                    // SOIL MOISTURE
 
                     moistureData.push(
 
                         Number(
-                            record.soilMoisture ||
-                            0
+                            record.moisture ?? 0
                         )
 
                     );
 
+
+                    // RAIN
 
                     rainData.push(
 
                         Number(
-                            record.rain ||
-                            0
+                            record.rain ?? 0
                         )
 
                     );
 
 
+                    // SLOPE / ANGLE
+
                     angleData.push(
 
                         Number(
-                            record.angle ||
-                            0
+                            record.slope ?? 0
                         )
 
                     );
@@ -1733,6 +1560,10 @@
 
             );
 
+
+            // =================================================
+            // UPDATE CHART
+            // =================================================
 
             createChart(
 
@@ -1746,11 +1577,24 @@
 
             );
 
+
+            // =================================================
+            // DEBUG
+            // =================================================
+
+            console.log(
+                "Latest Firebase Sensor Data:",
+                latest
+            );
+
         },
 
 
-        (error) => {
+        // =====================================================
+        // FIREBASE ERROR
+        // =====================================================
 
+        (error) => {
 
             console.error(
                 "Firebase Error:",
@@ -1759,45 +1603,32 @@
 
 
             document
-                .getElementById(
-                    "connection"
-                )
+                .getElementById("connection")
                 .textContent =
-
                 "● Firebase Connection Error";
 
 
             document
-                .getElementById(
-                    "connection"
-                )
+                .getElementById("connection")
                 .style.color =
                 "#d60000";
-
         }
 
     );
-
 
 
     // =========================================================
     // WEATHER API
     // =========================================================
 
-    const LATITUDE =
-        21.136720;
+    const LATITUDE = 21.136720;
 
-
-    const LONGITUDE =
-        81.670680;
-
+    const LONGITUDE = 81.670680;
 
 
     async function loadWeather() {
 
-
         try {
-
 
             const url =
 
@@ -1847,7 +1678,6 @@
                 throw new Error(
                     "Weather API error"
                 );
-
             }
 
 
@@ -1859,51 +1689,36 @@
                 weather.current;
 
 
-
             // =================================================
             // CURRENT WEATHER
             // =================================================
 
             document
-                .getElementById(
-                    "weatherTemp"
-                )
+                .getElementById("weatherTemp")
                 .textContent =
-
                 `${current.temperature_2m}°C`;
 
 
             document
-                .getElementById(
-                    "weatherHumidity"
-                )
+                .getElementById("weatherHumidity")
                 .textContent =
-
                 `${current.relative_humidity_2m}%`;
 
 
             document
-                .getElementById(
-                    "weatherRain"
-                )
+                .getElementById("weatherRain")
                 .textContent =
-
                 `${current.rain} mm`;
 
 
             document
-                .getElementById(
-                    "weatherWind"
-                )
+                .getElementById("weatherWind")
                 .textContent =
-
                 `${current.wind_speed_10m} km/h`;
 
 
             document
-                .getElementById(
-                    "weatherCondition"
-                )
+                .getElementById("weatherCondition")
                 .textContent =
 
                 "Weather condition: " +
@@ -1913,17 +1728,14 @@
                 );
 
 
-
             // =================================================
-            // FORECAST
+            // HOURLY FORECAST
             // =================================================
 
             const forecast =
-
-                document
-                    .getElementById(
-                        "forecast"
-                    );
+                document.getElementById(
+                    "forecast"
+                );
 
 
             forecast.innerHTML = "";
@@ -1935,13 +1747,10 @@
                 i++
             ) {
 
-
                 const time =
 
                     new Date(
-                        weather
-                            .hourly
-                            .time[i]
+                        weather.hourly.time[i]
                     );
 
 
@@ -1967,11 +1776,9 @@
 
 
                 const card =
-
-                    document
-                        .createElement(
-                            "div"
-                        );
+                    document.createElement(
+                        "div"
+                    );
 
 
                 card.className =
@@ -1982,44 +1789,29 @@
 
                     <div class="forecast-time">
 
-                        ${
-                            time.toLocaleTimeString(
-
-                                [],
-
-                                {
-
-                                    hour:
-                                        "2-digit",
-
-                                    minute:
-                                        "2-digit"
-
-                                }
-
-                            )
-                        }
+                        ${time.toLocaleTimeString(
+                            [],
+                            {
+                                hour: "2-digit",
+                                minute: "2-digit"
+                            }
+                        )}
 
                     </div>
-
 
                     <div class="forecast-icon">
 
-                        ${
-                            getWeatherIcon(
-                                weatherCode
-                            )
-                        }
+                        ${getWeatherIcon(
+                            weatherCode
+                        )}
 
                     </div>
-
 
                     <div class="forecast-temp">
 
                         ${temperature}°C
 
                     </div>
-
 
                     <div class="forecast-rain">
 
@@ -2030,18 +1822,12 @@
                 `;
 
 
-                forecast.appendChild(
-                    card
-                );
-
+                forecast.appendChild(card);
             }
 
 
-
             document
-                .getElementById(
-                    "weatherUpdate"
-                )
+                .getElementById("weatherUpdate")
                 .textContent =
 
                 "Weather updated: " +
@@ -2054,7 +1840,6 @@
 
         catch (error) {
 
-
             console.error(
                 "Weather Error:",
                 error
@@ -2062,134 +1847,68 @@
 
 
             document
-                .getElementById(
-                    "weatherCondition"
-                )
+                .getElementById("weatherCondition")
                 .textContent =
-
                 "Weather data unavailable";
 
 
             document
-                .getElementById(
-                    "weatherUpdate"
-                )
+                .getElementById("weatherUpdate")
                 .textContent =
-
                 "Could not connect to weather service.";
-
         }
-
     }
-
 
 
     // =========================================================
     // WEATHER DESCRIPTION
     // =========================================================
 
-    function getWeatherDescription(
-        code
-    ) {
-
+    function getWeatherDescription(code) {
 
         const descriptions = {
 
-            0:
-                "Clear Sky",
-
-            1:
-                "Mainly Clear",
-
-            2:
-                "Partly Cloudy",
-
-            3:
-                "Overcast",
-
-            45:
-                "Fog",
-
-            48:
-                "Depositing Rime Fog",
-
-            51:
-                "Light Drizzle",
-
-            53:
-                "Moderate Drizzle",
-
-            55:
-                "Dense Drizzle",
-
-            61:
-                "Slight Rain",
-
-            63:
-                "Moderate Rain",
-
-            65:
-                "Heavy Rain",
-
-            71:
-                "Slight Snow",
-
-            73:
-                "Moderate Snow",
-
-            75:
-                "Heavy Snow",
-
-            80:
-                "Slight Rain Showers",
-
-            81:
-                "Moderate Rain Showers",
-
-            82:
-                "Violent Rain Showers",
-
-            95:
-                "Thunderstorm",
-
-            96:
-                "Thunderstorm with Hail",
-
-            99:
-                "Thunderstorm with Heavy Hail"
+            0: "Clear Sky",
+            1: "Mainly Clear",
+            2: "Partly Cloudy",
+            3: "Overcast",
+            45: "Fog",
+            48: "Depositing Rime Fog",
+            51: "Light Drizzle",
+            53: "Moderate Drizzle",
+            55: "Dense Drizzle",
+            61: "Slight Rain",
+            63: "Moderate Rain",
+            65: "Heavy Rain",
+            71: "Slight Snow",
+            73: "Moderate Snow",
+            75: "Heavy Snow",
+            80: "Slight Rain Showers",
+            81: "Moderate Rain Showers",
+            82: "Violent Rain Showers",
+            95: "Thunderstorm",
+            96: "Thunderstorm with Hail",
+            99: "Thunderstorm with Heavy Hail"
 
         };
 
 
         return (
-
             descriptions[code]
-
             ||
-
             "Unknown"
-
         );
-
     }
-
 
 
     // =========================================================
     // WEATHER ICON
     // =========================================================
 
-    function getWeatherIcon(
-        code
-    ) {
+    function getWeatherIcon(code) {
 
-
-        if (
-            code === 0
-        ) {
-
+        if (code === 0) {
             return "☀️";
-
         }
 
 
@@ -2197,18 +1916,12 @@
             code === 1 ||
             code === 2
         ) {
-
             return "🌤️";
-
         }
 
 
-        if (
-            code === 3
-        ) {
-
+        if (code === 3) {
             return "☁️";
-
         }
 
 
@@ -2216,9 +1929,7 @@
             code === 45 ||
             code === 48
         ) {
-
             return "🌫️";
-
         }
 
 
@@ -2226,9 +1937,7 @@
             code >= 51 &&
             code <= 67
         ) {
-
             return "🌧️";
-
         }
 
 
@@ -2236,9 +1945,7 @@
             code >= 71 &&
             code <= 77
         ) {
-
             return "❄️";
-
         }
 
 
@@ -2246,155 +1953,140 @@
             code >= 80 &&
             code <= 82
         ) {
-
             return "🌦️";
-
         }
 
 
-        if (
-            code >= 95
-        ) {
-
+        if (code >= 95) {
             return "⛈️";
-
         }
 
 
         return "🌤️";
-
     }
 
 
-
     // =========================================================
-    // LOAD WEATHER
+    // START WEATHER
     // =========================================================
 
     loadWeather();
 
 
-    /*
-     * Weather refresh:
-     * Every 15 minutes
-     */
+    // Refresh every 15 minutes
 
     setInterval(
-
         loadWeather,
-
         15 * 60 * 1000
-
     );
-
-
 
 </script>
 
 
 
-<!-- =========================================================
+
+    <!-- =========================================================
      GIS MAP SCRIPT
 ========================================================= -->
 
-<script>
+    <script>
 
 
-    // =========================================================
-    // MUJGAHAN COORDINATES
-    // =========================================================
+        // =========================================================
+        // MUJGAHAN COORDINATES
+        // =========================================================
 
-    const mujgahanLatitude =
-        21.136720;
-
-
-    const mujgahanLongitude =
-        81.670680;
+        const mujgahanLatitude =
+            21.136720;
 
 
-
-    // =========================================================
-    // CREATE MAP
-    // =========================================================
-
-    const mujgahanMap =
-
-        L.map(
-
-            "mujgahanMap"
-
-        )
-        .setView(
-
-            [
-
-                mujgahanLatitude,
-
-                mujgahanLongitude
-
-            ],
-
-            14
-
-        );
+        const mujgahanLongitude =
+            81.670680;
 
 
 
-    // =========================================================
-    // OPENSTREETMAP TILE LAYER
-    // =========================================================
+        // =========================================================
+        // CREATE MAP
+        // =========================================================
 
-    L.tileLayer(
+        const mujgahanMap =
 
-        "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            L.map(
 
-        {
+                "mujgahanMap"
 
-            maxZoom: 19,
+            )
+                .setView(
 
-            attribution:
-                "&copy; OpenStreetMap contributors"
+                    [
 
-        }
+                        mujgahanLatitude,
 
-    )
-    .addTo(
-        mujgahanMap
-    );
+                        mujgahanLongitude
+
+                    ],
+
+                    14
+
+                );
 
 
 
-    // =========================================================
-    // MUJGAHAN MARKER
-    // =========================================================
+        // =========================================================
+        // OPENSTREETMAP TILE LAYER
+        // =========================================================
 
-    const mujgahanMarker =
+        L.tileLayer(
 
-        L.marker(
+            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
 
-            [
+            {
 
-                mujgahanLatitude,
+                maxZoom: 19,
 
-                mujgahanLongitude
+                attribution:
+                    "&copy; OpenStreetMap contributors"
 
-            ]
+            }
 
         )
-        .addTo(
-            mujgahanMap
-        );
+            .addTo(
+                mujgahanMap
+            );
 
 
 
-    // =========================================================
-    // MARKER POPUP
-    // =========================================================
+        // =========================================================
+        // MUJGAHAN MARKER
+        // =========================================================
 
-    mujgahanMarker
-        .bindPopup(
+        const mujgahanMarker =
 
-            `
+            L.marker(
+
+                [
+
+                    mujgahanLatitude,
+
+                    mujgahanLongitude
+
+                ]
+
+            )
+                .addTo(
+                    mujgahanMap
+                );
+
+
+
+        // =========================================================
+        // MARKER POPUP
+        // =========================================================
+
+        mujgahanMarker
+            .bindPopup(
+
+                `
 
             <div style="text-align:center">
 
@@ -2414,14 +2106,14 @@
 
             `
 
-        );
+            );
 
 
-    mujgahanMarker.openPopup();
+        mujgahanMarker.openPopup();
 
 
 
-</script>
+    </script>
 
 
 </body>
