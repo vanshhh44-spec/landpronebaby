@@ -1010,800 +1010,849 @@
 
     <script type="module">
 
-    // =========================================================
-    // FIREBASE IMPORTS
-    // =========================================================
+        // =========================================================
+        // FIREBASE IMPORTS
+        // =========================================================
 
-    import {
-        initializeApp
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import {
+            initializeApp
+        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-    import {
-        getDatabase,
-        ref,
-        onValue,
-        query,
-        limitToLast
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-
-
-    // =========================================================
-    // FIREBASE CONFIG
-    // =========================================================
-
-    const firebaseConfig = {
-
-        apiKey: "AIzaSyBqL9eM6rWmUx2uBvIXHU0bxQTIjSe7DpQ",
-
-        authDomain:
-            "esp-demo-4e43b.firebaseapp.com",
-
-        databaseURL:
-            "https://esp-demo-4e43b-default-rtdb.asia-southeast1.firebasedatabase.app",
-
-        projectId:
-            "esp-demo-4e43b",
-
-        storageBucket:
-            "esp-demo-4e43b.firebasestorage.app",
-
-        messagingSenderId:
-            "791498088764",
-
-        appId:
-            "1:791498088764:web:882611deb10d667c1dbe39"
-    };
+        import {
+            getDatabase,
+            ref,
+            onValue,
+            query,
+            limitToLast
+        } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 
-    // =========================================================
-    // FIREBASE INITIALIZE
-    // =========================================================
+        // =========================================================
+        // FIREBASE CONFIG
+        // =========================================================
 
-    const app = initializeApp(firebaseConfig);
+        const firebaseConfig = {
 
-    const database = getDatabase(app);
+            apiKey: "AIzaSyBqL9eM6rWmUx2uBvIXHU0bxQTIjSe7DpQ",
 
-    const sensorRef = ref(database, "sensor");
+            authDomain:
+                "esp-demo-4e43b.firebaseapp.com",
 
-    const sensorQuery = query(
-        sensorRef,
-        limitToLast(30)
-    );
+            databaseURL:
+                "https://esp-demo-4e43b-default-rtdb.asia-southeast1.firebasedatabase.app",
 
+            projectId:
+                "esp-demo-4e43b",
 
-    // =========================================================
-    // CHART
-    // =========================================================
+            storageBucket:
+                "esp-demo-4e43b.firebasestorage.app",
 
-    let sensorChart;
+            messagingSenderId:
+                "791498088764",
 
-
-    function createChart(
-        labels,
-        moistureData,
-        rainData,
-        angleData
-    ) {
-
-        const canvas =
-            document.getElementById("sensorChart");
-
-        if (!canvas) {
-            return;
-        }
-
-        const ctx = canvas.getContext("2d");
+            appId:
+                "1:791498088764:web:882611deb10d667c1dbe39"
+        };
 
 
-        if (sensorChart) {
-            sensorChart.destroy();
-        }
+        // =========================================================
+        // FIREBASE INITIALIZE
+        // =========================================================
+
+        const app = initializeApp(firebaseConfig);
+
+        const database = getDatabase(app);
+
+        const sensorRef = ref(database, "sensor");
+
+        const sensorQuery = query(
+            sensorRef,
+            limitToLast(30)
+        );
 
 
-        sensorChart = new Chart(
-            ctx,
-            {
-                type: "line",
+        // =========================================================
+        // CHART
+        // =========================================================
 
-                data: {
+        let sensorChart;
 
-                    labels: labels,
 
-                    datasets: [
+        function createChart(
+            labels,
+            moistureData,
+            rainData,
+            angleData
+        ) {
 
-                        {
-                            label: "Soil Moisture (%)",
+            const canvas =
+                document.getElementById("sensorChart");
 
-                            data: moistureData,
+            if (!canvas) {
+                return;
+            }
 
-                            borderColor: "#16a34a",
+            const ctx = canvas.getContext("2d");
 
-                            backgroundColor:
-                                "rgba(22,163,74,0.08)",
 
-                            tension: 0.35,
+            if (sensorChart) {
+                sensorChart.destroy();
+            }
 
-                            fill: true
-                        },
 
-                        {
-                            label: "Rain (%)",
+            sensorChart = new Chart(
+                ctx,
+                {
+                    type: "line",
 
-                            data: rainData,
+                    data: {
 
-                            borderColor: "#1683d8",
+                        labels: labels,
 
-                            backgroundColor:
-                                "rgba(22,131,216,0.08)",
+                        datasets: [
 
-                            tension: 0.35,
+                            {
+                                label: "Soil Moisture (%)",
 
-                            fill: true
-                        },
+                                data: moistureData,
 
-                        {
-                            label: "Surface Angle (°)",
+                                borderColor: "#16a34a",
 
-                            data: angleData,
+                                backgroundColor:
+                                    "rgba(22,163,74,0.08)",
 
-                            borderColor: "#f59e0b",
+                                tension: 0.35,
 
-                            backgroundColor:
-                                "rgba(245,158,11,0.08)",
+                                fill: true
+                            },
 
-                            tension: 0.35,
+                            {
+                                label: "Rain (%)",
 
-                            fill: false
-                        }
+                                data: rainData,
 
-                    ]
-                },
+                                borderColor: "#1683d8",
 
-                options: {
+                                backgroundColor:
+                                    "rgba(22,131,216,0.08)",
 
-                    responsive: true,
+                                tension: 0.35,
 
-                    maintainAspectRatio: false,
+                                fill: true
+                            },
 
-                    interaction: {
+                            {
+                                label: "Surface Angle (°)",
 
-                        mode: "index",
+                                data: angleData,
 
-                        intersect: false
+                                borderColor: "#f59e0b",
+
+                                backgroundColor:
+                                    "rgba(245,158,11,0.08)",
+
+                                tension: 0.35,
+
+                                fill: false
+                            }
+
+                        ]
                     },
 
-                    scales: {
+                    options: {
 
-                        y: {
+                        responsive: true,
 
-                            beginAtZero: false
+                        maintainAspectRatio: false,
+
+                        interaction: {
+
+                            mode: "index",
+
+                            intersect: false
+                        },
+
+                        scales: {
+
+                            y: {
+
+                                beginAtZero: false
+                            }
+
                         }
-
                     }
                 }
+            );
+        }
+
+
+        // =========================================================
+        // LANDSLIDE RISK CALCULATION
+        // =========================================================
+
+        function calculateLandslideRisk(
+            moisture,
+            rain,
+            slope
+        ) {
+
+            const absSlope = Math.abs(slope);
+
+            let score = 0;
+
+
+            // -----------------------------------------
+            // MOISTURE
+            // -----------------------------------------
+
+            if (moisture >= 80) {
+
+                score += 2;
+
             }
-        );
-    }
+            else if (moisture >= 60) {
+
+                score += 1;
+            }
 
 
-    // =========================================================
-    // LANDSLIDE RISK CALCULATION
-    // =========================================================
+            // -----------------------------------------
+            // RAIN
+            // -----------------------------------------
 
-    function calculateLandslideRisk(
-        moisture,
-        rain,
-        slope
-    ) {
+            if (rain >= 80) {
 
-        const absSlope = Math.abs(slope);
+                score += 2;
 
-        let score = 0;
+            }
+            else if (rain >= 50) {
 
-
-        // -----------------------------------------
-        // MOISTURE
-        // -----------------------------------------
-
-        if (moisture >= 80) {
-
-            score += 2;
-
-        }
-        else if (moisture >= 60) {
-
-            score += 1;
-        }
+                score += 1;
+            }
 
 
-        // -----------------------------------------
-        // RAIN
-        // -----------------------------------------
+            // -----------------------------------------
+            // SLOPE
+            // -----------------------------------------
 
-        if (rain >= 80) {
+            if (absSlope >= 30) {
 
-            score += 2;
+                score += 2;
 
-        }
-        else if (rain >= 50) {
+            }
+            else if (absSlope >= 15) {
 
-            score += 1;
-        }
-
-
-        // -----------------------------------------
-        // SLOPE
-        // -----------------------------------------
-
-        if (absSlope >= 30) {
-
-            score += 2;
-
-        }
-        else if (absSlope >= 15) {
-
-            score += 1;
-        }
+                score += 1;
+            }
 
 
-        // -----------------------------------------
-        // RESULT
-        // -----------------------------------------
+            // -----------------------------------------
+            // RESULT
+            // -----------------------------------------
 
-        if (score >= 5) {
+            if (score >= 5) {
+
+                return {
+                    probability: "High Chance",
+                    status: "Landslide"
+                };
+
+            }
+
+
+            if (score >= 3) {
+
+                return {
+                    probability: "Moderate Chance",
+                    status: "Unusual Land Movement"
+                };
+
+            }
+
+
+            if (score >= 1) {
+
+                return {
+                    probability: "Low Chance",
+                    status: "Stable"
+                };
+
+            }
+
 
             return {
-                probability: "High Chance",
-                status: "Landslide"
+                probability: "Nearly No Chance",
+                status: "No Landslide"
             };
-
         }
 
 
-        if (score >= 3) {
+        // =========================================================
+        // FIREBASE LIVE DATA
+        // =========================================================
 
-            return {
-                probability: "Moderate Chance",
-                status: "Unusual Land Movement"
-            };
+        onValue(
 
-        }
+            sensorQuery,
 
+            (snapshot) => {
 
-        if (score >= 1) {
-
-            return {
-                probability: "Low Chance",
-                status: "Stable"
-            };
-
-        }
+                const data = snapshot.val();
 
 
-        return {
-            probability: "Nearly No Chance",
-            status: "No Landslide"
-        };
-    }
+                if (!data) {
+
+                    document
+                        .getElementById("connection")
+                        .textContent =
+                        "● Firebase Connected • No Sensor Data";
+
+                    return;
+                }
 
 
-    // =========================================================
-    // FIREBASE LIVE DATA
-    // =========================================================
+                // -----------------------------------------
+                // GET ALL RECORDS
+                // -----------------------------------------
 
-    onValue(
-
-        sensorQuery,
-
-        (snapshot) => {
-
-            const data = snapshot.val();
+                const records =
+                    Object.values(data);
 
 
-            if (!data) {
+                records.sort(
+
+                    (a, b) =>
+
+                        Number(a.timestamp || 0)
+                        -
+                        Number(b.timestamp || 0)
+
+                );
+
+
+                const latest =
+                    records[records.length - 1];
+
+
+                if (!latest) {
+                    return;
+                }
+
+
+                // =================================================
+                // IMPORTANT
+                //
+                // PYTHON UPLOADER SHOULD SEND:
+                //
+                // moisture
+                // rain
+                // slope
+                // timestamp
+                // =================================================
+
+
+                const moisture =
+                    Number(latest.moisture ?? 0);
+
+
+                const rain =
+                    Number(latest.rain ?? 0);
+
+
+                const slope =
+                    Number(latest.slope ?? 0);
+
+
+                // =================================================
+                // SENSOR CARDS
+                // =================================================
+
+                document
+                    .getElementById("moisture")
+                    .textContent =
+                    `${moisture.toFixed(1)}%`;
+
+
+                document
+                    .getElementById("rain")
+                    .textContent =
+                    `${rain.toFixed(1)}%`;
+
+
+                document
+                    .getElementById("angle")
+                    .textContent =
+                    `${slope.toFixed(1)}°`;
+
+
+                // =================================================
+                // LANDSLIDE ASSESSMENT (DISABLED - READS FROM FIREBASE PREDICTION NODE NOW)
+                // =================================================
+
+                /*
+                const risk =
+                    calculateLandslideRisk(
+                        moisture,
+                        rain,
+                        slope
+                    );
+    
+    
+                document
+                    .getElementById("landSchance")
+                    .textContent =
+                    risk.probability;
+    
+    
+                document
+                    .getElementById("slopeStatus")
+                    .textContent =
+                    risk.status;
+                */
+
+
+                // =================================================
+                // DANGER MODE (DISABLED - READS FROM FIREBASE PREDICTION NODE NOW)
+                // =================================================
+
+                /*
+                if (
+    
+                    risk.probability ===
+                    "High Chance"
+    
+                    ||
+    
+                    risk.status ===
+                    "Landslide"
+    
+                ) {
+    
+                    document
+                        .body
+                        .classList
+                        .add("danger-mode");
+    
+                }
+                else {
+    
+                    document
+                        .body
+                        .classList
+                        .remove("danger-mode");
+                }
+                */
+
+
+                // =================================================
+                // TIMESTAMP
+                // =================================================
+
+                if (latest.timestamp) {
+
+                    const date =
+
+                        new Date(
+                            Number(latest.timestamp) * 1000
+                        );
+
+
+                    document
+                        .getElementById("update-time")
+                        .textContent =
+
+                        "Last Sensor Update: " +
+                        date.toLocaleString();
+                }
+
+
+                // =================================================
+                // CONNECTION
+                // =================================================
 
                 document
                     .getElementById("connection")
                     .textContent =
-                    "● Firebase Connected • No Sensor Data";
-
-                return;
-            }
-
-
-            // -----------------------------------------
-            // GET ALL RECORDS
-            // -----------------------------------------
-
-            const records =
-                Object.values(data);
-
-
-            records.sort(
-
-                (a, b) =>
-
-                    Number(a.timestamp || 0)
-                    -
-                    Number(b.timestamp || 0)
-
-            );
-
-
-            const latest =
-                records[records.length - 1];
-
-
-            if (!latest) {
-                return;
-            }
-
-
-            // =================================================
-            // IMPORTANT
-            //
-            // PYTHON UPLOADER SHOULD SEND:
-            //
-            // moisture
-            // rain
-            // slope
-            // timestamp
-            // =================================================
-
-
-            const moisture =
-                Number(latest.moisture ?? 0);
-
-
-            const rain =
-                Number(latest.rain ?? 0);
-
-
-            const slope =
-                Number(latest.slope ?? 0);
-
-
-            // =================================================
-            // SENSOR CARDS
-            // =================================================
-
-            document
-                .getElementById("moisture")
-                .textContent =
-                `${moisture.toFixed(1)}%`;
-
-
-            document
-                .getElementById("rain")
-                .textContent =
-                `${rain.toFixed(1)}%`;
-
-
-            document
-                .getElementById("angle")
-                .textContent =
-                `${slope.toFixed(1)}°`;
-
-
-            // =================================================
-            // LANDSLIDE ASSESSMENT
-            // =================================================
-
-            const risk =
-                calculateLandslideRisk(
-                    moisture,
-                    rain,
-                    slope
-                );
-
-
-            document
-                .getElementById("landSchance")
-                .textContent =
-                risk.probability;
-
-
-            document
-                .getElementById("slopeStatus")
-                .textContent =
-                risk.status;
-
-
-            // =================================================
-            // DANGER MODE
-            // =================================================
-
-            if (
-
-                risk.probability ===
-                "High Chance"
-
-                ||
-
-                risk.status ===
-                "Landslide"
-
-            ) {
-
-                document
-                    .body
-                    .classList
-                    .add("danger-mode");
-
-            }
-            else {
-
-                document
-                    .body
-                    .classList
-                    .remove("danger-mode");
-            }
-
-
-            // =================================================
-            // TIMESTAMP
-            // =================================================
-
-            if (latest.timestamp) {
-
-                const date =
-
-                    new Date(
-                        Number(latest.timestamp) * 1000
-                    );
+                    "● Firebase Connected • Live Data";
 
 
                 document
-                    .getElementById("update-time")
-                    .textContent =
-
-                    "Last Sensor Update: " +
-                    date.toLocaleString();
-            }
+                    .getElementById("connection")
+                    .style.color =
+                    "#16803c";
 
 
-            // =================================================
-            // CONNECTION
-            // =================================================
+                // =================================================
+                // GRAPH DATA
+                // =================================================
 
-            document
-                .getElementById("connection")
-                .textContent =
-                "● Firebase Connected • Live Data";
+                const labels = [];
 
+                const moistureData = [];
 
-            document
-                .getElementById("connection")
-                .style.color =
-                "#16803c";
+                const rainData = [];
+
+                const angleData = [];
 
 
-            // =================================================
-            // GRAPH DATA
-            // =================================================
+                records.forEach(
 
-            const labels = [];
+                    record => {
 
-            const moistureData = [];
-
-            const rainData = [];
-
-            const angleData = [];
+                        let time = "--";
 
 
-            records.forEach(
+                        if (record.timestamp) {
 
-                record => {
+                            time =
 
-                    let time = "--";
+                                new Date(
+                                    Number(
+                                        record.timestamp
+                                    ) * 1000
+                                )
+                                    .toLocaleTimeString(
+
+                                        [],
+
+                                        {
+                                            hour: "2-digit",
+                                            minute: "2-digit",
+                                            second: "2-digit"
+                                        }
+
+                                    );
+                        }
 
 
-                    if (record.timestamp) {
+                        labels.push(time);
 
-                        time =
 
-                            new Date(
-                                Number(
-                                    record.timestamp
-                                ) * 1000
+                        // SOIL MOISTURE
+
+                        moistureData.push(
+
+                            Number(
+                                record.moisture ?? 0
                             )
-                            .toLocaleTimeString(
 
-                                [],
+                        );
 
-                                {
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                    second: "2-digit"
-                                }
 
-                            );
+                        // RAIN
+
+                        rainData.push(
+
+                            Number(
+                                record.rain ?? 0
+                            )
+
+                        );
+
+
+                        // SLOPE / ANGLE
+
+                        angleData.push(
+
+                            Number(
+                                record.slope ?? 0
+                            )
+
+                        );
+
                     }
 
-
-                    labels.push(time);
-
-
-                    // SOIL MOISTURE
-
-                    moistureData.push(
-
-                        Number(
-                            record.moisture ?? 0
-                        )
-
-                    );
-
-
-                    // RAIN
-
-                    rainData.push(
-
-                        Number(
-                            record.rain ?? 0
-                        )
-
-                    );
-
-
-                    // SLOPE / ANGLE
-
-                    angleData.push(
-
-                        Number(
-                            record.slope ?? 0
-                        )
-
-                    );
-
-                }
-
-            );
-
-
-            // =================================================
-            // UPDATE CHART
-            // =================================================
-
-            createChart(
-
-                labels,
-
-                moistureData,
-
-                rainData,
-
-                angleData
-
-            );
-
-
-            // =================================================
-            // DEBUG
-            // =================================================
-
-            console.log(
-                "Latest Firebase Sensor Data:",
-                latest
-            );
-
-        },
-
-
-        // =====================================================
-        // FIREBASE ERROR
-        // =====================================================
-
-        (error) => {
-
-            console.error(
-                "Firebase Error:",
-                error
-            );
-
-
-            document
-                .getElementById("connection")
-                .textContent =
-                "● Firebase Connection Error";
-
-
-            document
-                .getElementById("connection")
-                .style.color =
-                "#d60000";
-        }
-
-    );
-
-
-    // =========================================================
-    // WEATHER API
-    // =========================================================
-
-    const LATITUDE = 21.136720;
-
-    const LONGITUDE = 81.670680;
-
-
-    async function loadWeather() {
-
-        try {
-
-            const url =
-
-                `https://api.open-meteo.com/v1/forecast` +
-
-                `?latitude=${LATITUDE}` +
-
-                `&longitude=${LONGITUDE}` +
-
-                `&current=` +
-
-                `temperature_2m,` +
-
-                `relative_humidity_2m,` +
-
-                `rain,` +
-
-                `precipitation,` +
-
-                `wind_speed_10m,` +
-
-                `weather_code` +
-
-                `&hourly=` +
-
-                `temperature_2m,` +
-
-                `relative_humidity_2m,` +
-
-                `rain,` +
-
-                `precipitation_probability,` +
-
-                `wind_speed_10m,` +
-
-                `weather_code` +
-
-                `&timezone=Asia%2FKolkata`;
-
-
-            const response =
-                await fetch(url);
-
-
-            if (!response.ok) {
-
-                throw new Error(
-                    "Weather API error"
                 );
+
+
+                // =================================================
+                // UPDATE CHART
+                // =================================================
+
+                createChart(
+
+                    labels,
+
+                    moistureData,
+
+                    rainData,
+
+                    angleData
+
+                );
+
+
+                // =================================================
+                // DEBUG
+                // =================================================
+
+                console.log(
+                    "Latest Firebase Sensor Data:",
+                    latest
+                );
+
+            },
+
+
+            // =====================================================
+            // FIREBASE ERROR
+            // =====================================================
+
+            (error) => {
+
+                console.error(
+                    "Firebase Error:",
+                    error
+                );
+
+
+                document
+                    .getElementById("connection")
+                    .textContent =
+                    "● Firebase Connection Error";
+
+
+                document
+                    .getElementById("connection")
+                    .style.color =
+                    "#d60000";
             }
 
-
-            const weather =
-                await response.json();
+        );
 
 
-            const current =
-                weather.current;
+        // =========================================================
+        // FIREBASE PREDICTION DATA
+        // =========================================================
+
+        const predictionRef = ref(database, "prediction");
+
+        onValue(
+            predictionRef,
+            (snapshot) => {
+                const data = snapshot.val();
+
+                if (!data) {
+                    return;
+                }
+
+                if (data.probability) {
+                    document
+                        .getElementById("landSchance")
+                        .textContent =
+                        data.probability;
+                }
+
+                if (data.status) {
+                    document
+                        .getElementById("slopeStatus")
+                        .textContent =
+                        data.status;
+                }
+
+                if (data.probability === "High Chance") {
+                    document
+                        .body
+                        .classList
+                        .add("danger-mode");
+                }
+                else {
+                    document
+                        .body
+                        .classList
+                        .remove("danger-mode");
+                }
+            }
+        );
 
 
-            // =================================================
-            // CURRENT WEATHER
-            // =================================================
+        // =========================================================
+        // WEATHER API
+        // =========================================================
 
-            document
-                .getElementById("weatherTemp")
-                .textContent =
-                `${current.temperature_2m}°C`;
+        const LATITUDE = 21.136720;
 
-
-            document
-                .getElementById("weatherHumidity")
-                .textContent =
-                `${current.relative_humidity_2m}%`;
+        const LONGITUDE = 81.670680;
 
 
-            document
-                .getElementById("weatherRain")
-                .textContent =
-                `${current.rain} mm`;
+        async function loadWeather() {
+
+            try {
+
+                const url =
+
+                    `https://api.open-meteo.com/v1/forecast` +
+
+                    `?latitude=${LATITUDE}` +
+
+                    `&longitude=${LONGITUDE}` +
+
+                    `&current=` +
+
+                    `temperature_2m,` +
+
+                    `relative_humidity_2m,` +
+
+                    `rain,` +
+
+                    `precipitation,` +
+
+                    `wind_speed_10m,` +
+
+                    `weather_code` +
+
+                    `&hourly=` +
+
+                    `temperature_2m,` +
+
+                    `relative_humidity_2m,` +
+
+                    `rain,` +
+
+                    `precipitation_probability,` +
+
+                    `wind_speed_10m,` +
+
+                    `weather_code` +
+
+                    `&timezone=Asia%2FKolkata`;
 
 
-            document
-                .getElementById("weatherWind")
-                .textContent =
-                `${current.wind_speed_10m} km/h`;
+                const response =
+                    await fetch(url);
 
 
-            document
-                .getElementById("weatherCondition")
-                .textContent =
+                if (!response.ok) {
 
-                "Weather condition: " +
-
-                getWeatherDescription(
-                    current.weather_code
-                );
+                    throw new Error(
+                        "Weather API error"
+                    );
+                }
 
 
-            // =================================================
-            // HOURLY FORECAST
-            // =================================================
-
-            const forecast =
-                document.getElementById(
-                    "forecast"
-                );
+                const weather =
+                    await response.json();
 
 
-            forecast.innerHTML = "";
+                const current =
+                    weather.current;
 
 
-            for (
-                let i = 0;
-                i < 12;
-                i++
-            ) {
+                // =================================================
+                // CURRENT WEATHER
+                // =================================================
 
-                const time =
+                document
+                    .getElementById("weatherTemp")
+                    .textContent =
+                    `${current.temperature_2m}°C`;
 
-                    new Date(
-                        weather.hourly.time[i]
+
+                document
+                    .getElementById("weatherHumidity")
+                    .textContent =
+                    `${current.relative_humidity_2m}%`;
+
+
+                document
+                    .getElementById("weatherRain")
+                    .textContent =
+                    `${current.rain} mm`;
+
+
+                document
+                    .getElementById("weatherWind")
+                    .textContent =
+                    `${current.wind_speed_10m} km/h`;
+
+
+                document
+                    .getElementById("weatherCondition")
+                    .textContent =
+
+                    "Weather condition: " +
+
+                    getWeatherDescription(
+                        current.weather_code
                     );
 
 
-                const temperature =
+                // =================================================
+                // HOURLY FORECAST
+                // =================================================
 
-                    weather
-                        .hourly
-                        .temperature_2m[i];
-
-
-                const rainProbability =
-
-                    weather
-                        .hourly
-                        .precipitation_probability[i];
-
-
-                const weatherCode =
-
-                    weather
-                        .hourly
-                        .weather_code[i];
-
-
-                const card =
-                    document.createElement(
-                        "div"
+                const forecast =
+                    document.getElementById(
+                        "forecast"
                     );
 
 
-                card.className =
-                    "forecast-card";
+                forecast.innerHTML = "";
 
 
-                card.innerHTML = `
+                for (
+                    let i = 0;
+                    i < 12;
+                    i++
+                ) {
+
+                    const time =
+
+                        new Date(
+                            weather.hourly.time[i]
+                        );
+
+
+                    const temperature =
+
+                        weather
+                            .hourly
+                            .temperature_2m[i];
+
+
+                    const rainProbability =
+
+                        weather
+                            .hourly
+                            .precipitation_probability[i];
+
+
+                    const weatherCode =
+
+                        weather
+                            .hourly
+                            .weather_code[i];
+
+
+                    const card =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    card.className =
+                        "forecast-card";
+
+
+                    card.innerHTML = `
 
                     <div class="forecast-time">
 
                         ${time.toLocaleTimeString(
-                            [],
-                            {
-                                hour: "2-digit",
-                                minute: "2-digit"
-                            }
-                        )}
+                        [],
+                        {
+                            hour: "2-digit",
+                            minute: "2-digit"
+                        }
+                    )}
 
                     </div>
 
                     <div class="forecast-icon">
 
                         ${getWeatherIcon(
-                            weatherCode
-                        )}
+                        weatherCode
+                    )}
 
                     </div>
 
@@ -1822,165 +1871,165 @@
                 `;
 
 
-                forecast.appendChild(card);
+                    forecast.appendChild(card);
+                }
+
+
+                document
+                    .getElementById("weatherUpdate")
+                    .textContent =
+
+                    "Weather updated: " +
+
+                    new Date()
+                        .toLocaleTimeString();
+
             }
 
 
-            document
-                .getElementById("weatherUpdate")
-                .textContent =
+            catch (error) {
 
-                "Weather updated: " +
+                console.error(
+                    "Weather Error:",
+                    error
+                );
 
-                new Date()
-                    .toLocaleTimeString();
 
+                document
+                    .getElementById("weatherCondition")
+                    .textContent =
+                    "Weather data unavailable";
+
+
+                document
+                    .getElementById("weatherUpdate")
+                    .textContent =
+                    "Could not connect to weather service.";
+            }
         }
 
 
-        catch (error) {
+        // =========================================================
+        // WEATHER DESCRIPTION
+        // =========================================================
 
-            console.error(
-                "Weather Error:",
-                error
+        function getWeatherDescription(code) {
+
+            const descriptions = {
+
+                0: "Clear Sky",
+                1: "Mainly Clear",
+                2: "Partly Cloudy",
+                3: "Overcast",
+                45: "Fog",
+                48: "Depositing Rime Fog",
+                51: "Light Drizzle",
+                53: "Moderate Drizzle",
+                55: "Dense Drizzle",
+                61: "Slight Rain",
+                63: "Moderate Rain",
+                65: "Heavy Rain",
+                71: "Slight Snow",
+                73: "Moderate Snow",
+                75: "Heavy Snow",
+                80: "Slight Rain Showers",
+                81: "Moderate Rain Showers",
+                82: "Violent Rain Showers",
+                95: "Thunderstorm",
+                96: "Thunderstorm with Hail",
+                99: "Thunderstorm with Heavy Hail"
+
+            };
+
+
+            return (
+                descriptions[code]
+                ||
+                "Unknown"
             );
-
-
-            document
-                .getElementById("weatherCondition")
-                .textContent =
-                "Weather data unavailable";
-
-
-            document
-                .getElementById("weatherUpdate")
-                .textContent =
-                "Could not connect to weather service.";
-        }
-    }
-
-
-    // =========================================================
-    // WEATHER DESCRIPTION
-    // =========================================================
-
-    function getWeatherDescription(code) {
-
-        const descriptions = {
-
-            0: "Clear Sky",
-            1: "Mainly Clear",
-            2: "Partly Cloudy",
-            3: "Overcast",
-            45: "Fog",
-            48: "Depositing Rime Fog",
-            51: "Light Drizzle",
-            53: "Moderate Drizzle",
-            55: "Dense Drizzle",
-            61: "Slight Rain",
-            63: "Moderate Rain",
-            65: "Heavy Rain",
-            71: "Slight Snow",
-            73: "Moderate Snow",
-            75: "Heavy Snow",
-            80: "Slight Rain Showers",
-            81: "Moderate Rain Showers",
-            82: "Violent Rain Showers",
-            95: "Thunderstorm",
-            96: "Thunderstorm with Hail",
-            99: "Thunderstorm with Heavy Hail"
-
-        };
-
-
-        return (
-            descriptions[code]
-            ||
-            "Unknown"
-        );
-    }
-
-
-    // =========================================================
-    // WEATHER ICON
-    // =========================================================
-
-    function getWeatherIcon(code) {
-
-        if (code === 0) {
-            return "☀️";
         }
 
 
-        if (
-            code === 1 ||
-            code === 2
-        ) {
+        // =========================================================
+        // WEATHER ICON
+        // =========================================================
+
+        function getWeatherIcon(code) {
+
+            if (code === 0) {
+                return "☀️";
+            }
+
+
+            if (
+                code === 1 ||
+                code === 2
+            ) {
+                return "🌤️";
+            }
+
+
+            if (code === 3) {
+                return "☁️";
+            }
+
+
+            if (
+                code === 45 ||
+                code === 48
+            ) {
+                return "🌫️";
+            }
+
+
+            if (
+                code >= 51 &&
+                code <= 67
+            ) {
+                return "🌧️";
+            }
+
+
+            if (
+                code >= 71 &&
+                code <= 77
+            ) {
+                return "❄️";
+            }
+
+
+            if (
+                code >= 80 &&
+                code <= 82
+            ) {
+                return "🌦️";
+            }
+
+
+            if (code >= 95) {
+                return "⛈️";
+            }
+
+
             return "🌤️";
         }
 
 
-        if (code === 3) {
-            return "☁️";
-        }
+        // =========================================================
+        // START WEATHER
+        // =========================================================
+
+        loadWeather();
 
 
-        if (
-            code === 45 ||
-            code === 48
-        ) {
-            return "🌫️";
-        }
+        // Refresh every 15 minutes
 
+        setInterval(
+            loadWeather,
+            15 * 60 * 1000
+        );
 
-        if (
-            code >= 51 &&
-            code <= 67
-        ) {
-            return "🌧️";
-        }
-
-
-        if (
-            code >= 71 &&
-            code <= 77
-        ) {
-            return "❄️";
-        }
-
-
-        if (
-            code >= 80 &&
-            code <= 82
-        ) {
-            return "🌦️";
-        }
-
-
-        if (code >= 95) {
-            return "⛈️";
-        }
-
-
-        return "🌤️";
-    }
-
-
-    // =========================================================
-    // START WEATHER
-    // =========================================================
-
-    loadWeather();
-
-
-    // Refresh every 15 minutes
-
-    setInterval(
-        loadWeather,
-        15 * 60 * 1000
-    );
-
-</script>
+    </script>
 
 
 
